@@ -1,21 +1,30 @@
 import { Stack } from "expo-router";
+import DissmissKeyboard from "../src/components/Utils/DissmissKeyboard/DissmissKeyboard";
+import { Background } from "../src/components/Background/Background";
+import BackroundYellow from "../src/components/Background/BackroundYellow";
 
 const RootLayout = () => {
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{
-          headerTitle: "Login",
+    <>
+      <Stack
+        screenOptions={{
+          gestureEnabled: false,
         }}
-      />
-      <Stack.Screen
-        name="(pages)"
-        options={{
-          headerShown: false,
-        }}
-      />
-    </Stack>
+      >
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="(drawer)"
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack>
+    </>
   );
 };
 

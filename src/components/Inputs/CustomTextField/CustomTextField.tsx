@@ -1,75 +1,39 @@
-import { useState } from "react";
 import { FieldError, Noop } from "react-hook-form";
-import { Text, TextInput, TextProps, View, ViewStyle } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import { InputType } from "../types";
 
-import { StyleSheet } from "react-native";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
-import { InputType } from "./types";
-
-const AnimatedText = Animated.createAnimatedComponent(TextInput);
-
-interface FilledInputProps {
-  label: string;
+interface CustomTextFieldProps {
   onBlur: Noop;
   onChangeText: (...event: any[]) => void;
-  value: string;
   error?: FieldError | undefined;
   placeholder?: string;
-  shrink?: boolean;
   type?: InputType;
   endAdornment?: React.ReactNode;
-  sx?: ViewStyle;
-  labelSx?: ViewStyle;
+  startAdorment?: React.ReactNode;
 }
 
-export const FilledInput = ({
-  label,
+export const CustomTextField = ({
   placeholder,
   onBlur,
   onChangeText,
-  value,
   error,
-  shrink = false,
   type = "text",
   endAdornment,
-  sx,
-  labelSx,
-}: FilledInputProps) => {
-  const [shrinkState, setShrinkState] = useState(shrink);
-
-  const labelStyle = useAnimatedStyle(() => {
-    return {
-      top: shrinkState ? 1 : 10,
-      fontSize: shrinkState ? 10 : 16,
-    };
-  });
-
-  if (error) {
-    console.log(error);
-  }
-
+  startAdorment,
+}: CustomTextFieldProps) => {
   return (
     <View>
       <View style={styles.inputContainer}>
-        <AnimatedText style={[styles.label, labelStyle]}>{label}</AnimatedText>
-
+        {Boolean(startAdorment) && (
+          <View style={styles.startAdornment}>{startAdorment}</View>
+        )}
         <TextInput
-          style={[styles.input]}
+          style={[styles.input, Boolean(startAdorment) && { paddingLeft: 40 }]}
           secureTextEntry={type === "password"}
           keyboardType={type === "email" ? "email-address" : "default"}
           onChangeText={onChangeText}
-          onFocus={() => {
-            setShrinkState(true);
-            // si hay value entonces se mueve
-          }}
-          onBlur={() => {
-            onBlur();
-            if (!value) {
-              // vuelve al estado original
-              setShrinkState(false);
-            }
-          }}
-          placeholder={shrinkState ? (value ? "" : placeholder) : ""}
+          onBlur={onBlur}
+          placeholder={placeholder}
         />
         {
           // si hay un endAdornment se muestra
@@ -91,11 +55,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffff",
     color: "#000",
     height: 48,
-    borderRadius: 4,
+    borderRadius: 12,
     overflow: "hidden",
     width: "100%",
     position: "relative",
     display: "flex",
+    borderColor: "#000",
+    borderWidth: 1,
   },
   label: {
     color: "#000",
@@ -108,8 +74,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     width: "100%",
     height: "100%",
-    paddingTop: 8,
-    paddingLeft: 8,
   },
   endAdornment: {
     position: "absolute",
@@ -117,6 +81,15 @@ const styles = StyleSheet.create({
     flex: 1,
     zIndex: 5,
     marginVertical: 12,
+  },
+  startAdornment: {
+    position: "absolute",
+    left: 8,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 5,
+    marginVertical: 14,
   },
   errorMessage: {
     color: "red",

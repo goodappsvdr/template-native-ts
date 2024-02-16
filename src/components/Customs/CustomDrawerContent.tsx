@@ -19,9 +19,11 @@ import NewsIcon from "../Icons/NewsIcon";
 import ClaimsIcon from "../Icons/ClaimsIcon";
 import VideosIcon from "../Icons/VideosIcon";
 import FooterBackgroundDrawer from "../Background/FooterBackgroundDrawer";
+import { useAuthStore } from "../../zustand/authStore";
 
 export default function CustomDrawerContent(props: any) {
   const router = useRouter();
+  const { user } = useAuthStore();
   const { top, bottom } = useSafeAreaInsets();
 
   return (
@@ -50,52 +52,54 @@ export default function CustomDrawerContent(props: any) {
         </View>
 
         {/* USUARIO Y FOTO DE PERFIL */}
-        <View
-          style={{
-            alignItems: "center",
-            flexDirection: "row",
-            gap: 16,
-            elevation: 2,
-            backgroundColor: "#fff",
-            borderRadius: 12,
-            padding: 16,
-            marginHorizontal: 16,
-          }}
-        >
-          <Image
-            source={{
-              uri: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/MasterYi_0.jpg",
-            }}
+        {user && (
+          <View
             style={{
-              width: 74,
-              height: 74,
-              borderRadius: 99999,
-            }}
-          />
-
-          <Text
-            style={{
-              fontSize: 16,
-              fontWeight: "900",
-              textTransform: "uppercase",
-              flex: 1,
-              flexWrap: "wrap",
+              alignItems: "center",
+              flexDirection: "row",
+              gap: 16,
+              elevation: 2,
+              backgroundColor: "#fff",
+              borderRadius: 12,
+              padding: 16,
+              marginHorizontal: 16,
             }}
           >
-            Marisa Pérez
-          </Text>
-          {/* flecha */}
-          <View>
-            <GoBackIcon
-              fill={"#000"}
-              height={16}
-              width={16}
+            <Image
+              source={{
+                uri: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/MasterYi_0.jpg",
+              }}
               style={{
-                transform: [{ rotate: "180deg" }],
+                width: 74,
+                height: 74,
+                borderRadius: 99999,
               }}
             />
+
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "900",
+                textTransform: "uppercase",
+                flex: 1,
+                flexWrap: "wrap",
+              }}
+            >
+              {user.unique_name}
+            </Text>
+            {/* flecha */}
+            <View>
+              <GoBackIcon
+                fill={"#000"}
+                height={16}
+                width={16}
+                style={{
+                  transform: [{ rotate: "180deg" }],
+                }}
+              />
+            </View>
           </View>
-        </View>
+        )}
 
         {/* MENU 1 INICIO/PERFIL/CERRARSESION */}
         <View

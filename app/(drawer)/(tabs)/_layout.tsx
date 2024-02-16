@@ -11,6 +11,7 @@ import ProfileIcon from "../../../src/components/Icons/ProfileIcon";
 import MenuIcon from "../../../src/components/Icons/MenuIcon";
 import GoBackIcon from "../../../src/components/Icons/GoBackIcon";
 import { StatusBar } from "expo-status-bar";
+import CustomHeader from "../../../src/components/Customs/CustomHeader";
 
 const MainLayout = () => {
   const navigation = useNavigation() as DrawerNavigationProp<{}>;
@@ -40,31 +41,9 @@ const MainLayout = () => {
             fontSize: 8,
             marginTop: "auto",
           },
-          headerStyle: {
-            backgroundColor: COLORS.secondary,
-            height: 128,
+          header: () => {
+            return <CustomHeader goBackEnabled={false} />;
           },
-          headerLeft: () => {
-            //
-            return <></>;
-          },
-          headerRight: () => {
-            return (
-              <Pressable
-                onPress={() => {
-                  navigation.openDrawer();
-                }}
-              >
-                <MenuIcon
-                  fill={"#ffffff"}
-                  height={24}
-                  width={24}
-                  style={{ marginRight: 16 }}
-                />
-              </Pressable>
-            );
-          },
-          headerTitle: () => <></>,
         }}
       >
         <Tabs.Screen
@@ -85,7 +64,7 @@ const MainLayout = () => {
           name="diciplines"
           options={{
             title: "Diciplinas",
-            // headerShown: false,
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <DiciplinesIcon
                 fill={focused ? COLORS.primary : COLORS.secondary}

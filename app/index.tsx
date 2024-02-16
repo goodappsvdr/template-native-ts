@@ -21,19 +21,46 @@ import { UserIcon } from "../src/components/Icons/UserIcon";
 import { PasswordIcon } from "../src/components/Icons/PasswordIcon";
 import { Background } from "../src/components/Background/Background";
 import BackroundYellow from "../src/components/Background/BackroundYellow";
+import { api } from "../src/api/api";
+import { useMutation } from "@tanstack/react-query";
+import { useAuthStore } from "../src/zustand/authStore";
+import * as SecureStore from "expo-secure-store";
+
+interface IFormInput {
+  email: string;
+  dni: string;
+}
 
 const loginSchema = z.object({
-  username: z.string(),
-  password: z.string(),
+  email: z.string().email().min(5),
+  dni: z.string().min(5),
 });
+
+const loginUser = async (data: IFormInput) => {
+  // crear el formData
+
+  const formData = new FormData();
+  formData.append("Email", data.email);
+  formData.append("Dni", data.dni);
+
+  const response = await api.post("/AuthNew/Login", formData);
+
+  console.log(response.status);
+
+  return response.data;
+};
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigation();
+
+  const { setAccessToken } = useAuthStore();
+
   const form = useForm({
     defaultValues: {
-      username: "",
-      password: "",
+      email: "",
+      dni: "",
     },
     resolver: zodResolver(loginSchema),
   });
@@ -43,10 +70,23 @@ export default function Page() {
   };
 
   const submitForm = () => {
-    console.log("submitting form");
-
-    router.push("/home");
+    console.log(form.getValues());
+    loginMutation.mutate(form.getValues());
   };
+
+  const loginMutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: async (data) => {
+      console.log(data);
+      // router.push("/home");
+      setAccessToken(data.token);
+      await SecureStore.setItemAsync("token", data.token);
+      router.push("/home");
+    },
+    onError: (error) => {
+      console.log(error.message);
+    },
+  });
   const { register, handleSubmit, control } = form;
 
   return (
@@ -74,14 +114,14 @@ export default function Page() {
                   onBlur={onBlur}
                   onChangeText={onChange}
                   error={error}
-                  type="text"
-                  placeholder="Usuario"
+                  type="email"
+                  placeholder="Email"
                   startAdorment={
                     <UserIcon fill={"#000"} height={20} width={20} />
                   }
                 />
               )}
-              name="username"
+              name="email"
             />
             <Controller
               control={control}
@@ -97,7 +137,7 @@ export default function Page() {
                   onChangeText={onChange}
                   error={error}
                   type={showPassword ? "text" : "password"}
-                  placeholder="Contraseña"
+                  placeholder="DNI"
                   startAdorment={
                     <PasswordIcon fill={"#000"} height={20} width={20} />
                   }
@@ -122,7 +162,7 @@ export default function Page() {
                   }
                 />
               )}
-              name="password"
+              name="dni"
             />
 
             <Link href={"/forgetuser"} style={styles.forgetLink}>

@@ -13,9 +13,16 @@ interface RequestWithSecureStore extends AxiosRequestConfig {
 }
 
 const updateHeader = async (request: InternalAxiosRequestConfig) => {
-  //   const tokenZustand = (useAuthStore.getState() as any).accessToken;
+  const tokenZustand = (useAuthStore.getState() as any).accessToken;
 
-  //   const tokenSecureStore = await SecureStore.getItemAsync("token");
+  if (tokenZustand) {
+    request.headers["Authorization"] = `Bearer ${tokenZustand}`;
+  } else {
+    const tokenSecureStore = await SecureStore.getItemAsync("token");
+    if (tokenSecureStore) {
+      request.headers["Authorization"] = `Bearer ${tokenSecureStore}`;
+    }
+  }
 
   if (request.data instanceof FormData) {
     request.headers["Content-Type"] = "multipart/form-data";

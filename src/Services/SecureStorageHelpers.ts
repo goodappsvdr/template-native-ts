@@ -5,5 +5,6 @@ export const SecureStoreGetItemAsync = async (key: string) => {
 };
 
 export const SecureStoreSetItemAsync = async (key: string, value: string) => {
+  console.log("guarde", key, value);
   return await SecureStore.setItemAsync(key, value);
 };

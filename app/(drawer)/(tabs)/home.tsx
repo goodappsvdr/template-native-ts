@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, View } from "react-native";
 
+console.log("homeeeee");
+
 const Home = () => {
   return (
     <View>

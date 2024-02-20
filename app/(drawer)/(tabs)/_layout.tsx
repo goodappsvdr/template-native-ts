@@ -36,9 +36,9 @@ const MainLayout = () => {
           tabBarInactiveTintColor: COLORS.secondary,
           tabBarActiveTintColor: COLORS.primary,
           tabBarLabelStyle: {
-            fontWeight: "900",
+            fontFamily: "Montserrat-Black",
             textTransform: "uppercase",
-            fontSize: 8,
+            fontSize: 7,
             marginTop: "auto",
           },
           header: () => {
@@ -78,7 +78,7 @@ const MainLayout = () => {
           name="consulting-rooms"
           options={{
             title: "Consultorios",
-            // headerShown: false,
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <ConsultingRoomsIcon
                 fill={focused ? COLORS.primary : COLORS.secondary}

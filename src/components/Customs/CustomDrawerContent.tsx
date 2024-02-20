@@ -20,6 +20,7 @@ import ClaimsIcon from "../Icons/ClaimsIcon";
 import VideosIcon from "../Icons/VideosIcon";
 import FooterBackgroundDrawer from "../Background/FooterBackgroundDrawer";
 import { useAuthStore } from "../../zustand/authStore";
+import CustomText from "./CustomText";
 
 export default function CustomDrawerContent(props: any) {
   const router = useRouter();
@@ -29,6 +30,7 @@ export default function CustomDrawerContent(props: any) {
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
+        style={{ flex: 1, flexDirection: "column" }}
         {...props}
         contentContainerStyle={{ paddingTop: top }}
       >
@@ -40,15 +42,14 @@ export default function CustomDrawerContent(props: any) {
             marginHorizontal: 16,
           }}
         >
-          <Text
+          <CustomText
             style={{
               color: "#000",
               fontSize: 50,
-              fontWeight: "bold",
             }}
           >
             LOGO
-          </Text>
+          </CustomText>
         </View>
 
         {/* USUARIO Y FOTO DE PERFIL */}
@@ -76,21 +77,21 @@ export default function CustomDrawerContent(props: any) {
               }}
             />
 
-            <Text
+            <CustomText
               style={{
                 fontSize: 16,
-                fontWeight: "900",
                 textTransform: "uppercase",
+                color: COLORS.secondary,
                 flex: 1,
                 flexWrap: "wrap",
               }}
             >
               {user.unique_name}
-            </Text>
+            </CustomText>
             {/* flecha */}
             <View>
               <GoBackIcon
-                fill={"#000"}
+                fill={COLORS.secondary}
                 height={16}
                 width={16}
                 style={{
@@ -113,17 +114,17 @@ export default function CustomDrawerContent(props: any) {
           <DrawerItem
             label={({ focused, color }) => {
               return (
-                <Text
+                <CustomText
                   style={{
                     color: COLORS.secondary,
                     textTransform: "uppercase",
-                    fontWeight: "bold",
+
                     fontSize: 16,
                   }}
                   numberOfLines={1}
                 >
                   Inicio
-                </Text>
+                </CustomText>
               );
             }}
             onPress={() => {
@@ -132,7 +133,7 @@ export default function CustomDrawerContent(props: any) {
             icon={({ focused, color, size }) => {
               return (
                 <HomeIcon
-                  fill={color}
+                  fill={COLORS.secondary}
                   height={24}
                   width={24}
                   style={{ marginRight: -16 }}
@@ -143,17 +144,16 @@ export default function CustomDrawerContent(props: any) {
           <DrawerItem
             label={({ focused, color }) => {
               return (
-                <Text
+                <CustomText
                   style={{
                     color: COLORS.secondary,
                     textTransform: "uppercase",
-                    fontWeight: "bold",
                     fontSize: 16,
                   }}
                   numberOfLines={1}
                 >
                   Perfil
-                </Text>
+                </CustomText>
               );
             }}
             onPress={() => {
@@ -162,7 +162,7 @@ export default function CustomDrawerContent(props: any) {
             icon={({ focused, color, size }) => {
               return (
                 <ProfileIcon
-                  fill={color}
+                  fill={COLORS.secondary}
                   height={24}
                   width={24}
                   style={{ marginRight: -16 }}
@@ -170,36 +170,67 @@ export default function CustomDrawerContent(props: any) {
               );
             }}
           />
-          <DrawerItem
-            label={({ focused, color }) => {
-              return (
-                <Text
-                  style={{
-                    color: COLORS.secondary,
-                    textTransform: "uppercase",
-                    fontWeight: "bold",
-                    fontSize: 16,
-                  }}
-                  numberOfLines={1}
-                >
-                  Cerrar sesión
-                </Text>
-              );
-            }}
-            onPress={() => {
-              router.push("/");
-            }}
-            icon={({ focused, color, size }) => {
-              return (
-                <CloseSesion
-                  fill={color}
-                  height={24}
-                  width={24}
-                  style={{ marginRight: -16 }}
-                />
-              );
-            }}
-          />
+          {user ? (
+            <DrawerItem
+              label={({ focused, color }) => {
+                return (
+                  <CustomText
+                    style={{
+                      color: COLORS.secondary,
+                      textTransform: "uppercase",
+                      fontSize: 16,
+                    }}
+                    numberOfLines={1}
+                  >
+                    Cerrar sesión
+                  </CustomText>
+                );
+              }}
+              onPress={() => {
+                router.push("/logout");
+              }}
+              icon={({ focused, color, size }) => {
+                return (
+                  <CloseSesion
+                    fill={COLORS.secondary}
+                    height={24}
+                    width={24}
+                    style={{ marginRight: -16 }}
+                  />
+                );
+              }}
+            />
+          ) : (
+            <DrawerItem
+              label={({ focused, color }) => {
+                return (
+                  <CustomText
+                    style={{
+                      color: COLORS.secondary,
+                      textTransform: "uppercase",
+                      fontSize: 16,
+                    }}
+                    numberOfLines={1}
+                  >
+                    Iniciar sesión
+                  </CustomText>
+                );
+              }}
+              onPress={() => {
+                router.push("/login");
+              }}
+              icon={({ focused, color, size }) => {
+                return (
+                  <CloseSesion
+                    fill={COLORS.secondary}
+                    height={24}
+                    width={24}
+                    style={{ marginRight: -16 }}
+                  />
+                );
+              }}
+            />
+          )}
         </View>
 
         {/* MENU 2 DISCIPLINAS/CONSULTORIOS/NOTICIAS/VIDEOS/RECLAMOS */}
@@ -214,17 +245,16 @@ export default function CustomDrawerContent(props: any) {
           <DrawerItem
             label={({ focused, color }) => {
               return (
-                <Text
+                <CustomText
                   style={{
                     color: COLORS.secondary,
                     textTransform: "uppercase",
-                    fontWeight: "bold",
                     fontSize: 16,
                   }}
                   numberOfLines={1}
                 >
                   Disciplinas
-                </Text>
+                </CustomText>
               );
             }}
             onPress={() => {
@@ -233,7 +263,7 @@ export default function CustomDrawerContent(props: any) {
             icon={({ focused, color, size }) => {
               return (
                 <DiciplinesIcon
-                  fill={color}
+                  fill={COLORS.secondary}
                   height={24}
                   width={24}
                   style={{ marginRight: -16 }}
@@ -244,17 +274,16 @@ export default function CustomDrawerContent(props: any) {
           <DrawerItem
             label={({ focused, color }) => {
               return (
-                <Text
+                <CustomText
                   style={{
                     color: COLORS.secondary,
                     textTransform: "uppercase",
-                    fontWeight: "bold",
                     fontSize: 16,
                   }}
                   numberOfLines={1}
                 >
                   Consultorios
-                </Text>
+                </CustomText>
               );
             }}
             onPress={() => {
@@ -263,7 +292,7 @@ export default function CustomDrawerContent(props: any) {
             icon={({ focused, color, size }) => {
               return (
                 <ConsultingRoomsIcon
-                  fill={color}
+                  fill={COLORS.secondary}
                   height={24}
                   width={24}
                   style={{ marginRight: -16 }}
@@ -274,17 +303,16 @@ export default function CustomDrawerContent(props: any) {
           <DrawerItem
             label={({ focused, color }) => {
               return (
-                <Text
+                <CustomText
                   style={{
                     color: COLORS.secondary,
                     textTransform: "uppercase",
-                    fontWeight: "bold",
                     fontSize: 16,
                   }}
                   numberOfLines={1}
                 >
                   Noticias
-                </Text>
+                </CustomText>
               );
             }}
             onPress={() => {
@@ -293,7 +321,7 @@ export default function CustomDrawerContent(props: any) {
             icon={({ focused, color, size }) => {
               return (
                 <NewsIcon
-                  fill={color}
+                  fill={COLORS.secondary}
                   height={24}
                   width={24}
                   style={{ marginRight: -16 }}
@@ -301,50 +329,52 @@ export default function CustomDrawerContent(props: any) {
               );
             }}
           />
+          {user && (
+            <DrawerItem
+              label={({ focused, color }) => {
+                return (
+                  <CustomText
+                    style={{
+                      color: COLORS.secondary,
+                      textTransform: "uppercase",
+
+                      fontSize: 16,
+                    }}
+                    numberOfLines={1}
+                  >
+                    Reclamos
+                  </CustomText>
+                );
+              }}
+              onPress={() => {
+                router.push("/");
+              }}
+              icon={({ focused, color, size }) => {
+                return (
+                  <ClaimsIcon
+                    fill={COLORS.secondary}
+                    height={24}
+                    width={24}
+                    style={{ marginRight: -16 }}
+                  />
+                );
+              }}
+            />
+          )}
           <DrawerItem
             label={({ focused, color }) => {
               return (
-                <Text
+                <CustomText
                   style={{
                     color: COLORS.secondary,
                     textTransform: "uppercase",
-                    fontWeight: "bold",
-                    fontSize: 16,
-                  }}
-                  numberOfLines={1}
-                >
-                  Reclamos
-                </Text>
-              );
-            }}
-            onPress={() => {
-              router.push("/");
-            }}
-            icon={({ focused, color, size }) => {
-              return (
-                <ClaimsIcon
-                  fill={color}
-                  height={24}
-                  width={24}
-                  style={{ marginRight: -16 }}
-                />
-              );
-            }}
-          />
-          <DrawerItem
-            label={({ focused, color }) => {
-              return (
-                <Text
-                  style={{
-                    color: COLORS.secondary,
-                    textTransform: "uppercase",
-                    fontWeight: "bold",
+
                     fontSize: 16,
                   }}
                   numberOfLines={1}
                 >
                   Videos
-                </Text>
+                </CustomText>
               );
             }}
             onPress={() => {
@@ -353,7 +383,7 @@ export default function CustomDrawerContent(props: any) {
             icon={({ focused, color, size }) => {
               return (
                 <VideosIcon
-                  fill={color}
+                  fill={COLORS.secondary}
                   height={24}
                   width={24}
                   style={{ marginRight: -16 }}
@@ -369,42 +399,43 @@ export default function CustomDrawerContent(props: any) {
           style={{
             marginHorizontal: 16,
             paddingVertical: 8,
+            marginBottom: "auto",
           }}
         >
           <DrawerItem
             label={({ focused, color }) => {
               return (
-                <Text
+                <CustomText
                   style={{
                     color: COLORS.secondary,
                     textTransform: "uppercase",
-                    fontWeight: "bold",
+
                     fontSize: 16,
                   }}
                   numberOfLines={1}
                 >
                   Eos club
-                </Text>
+                </CustomText>
               );
             }}
             onPress={() => {
-              router.push("/home");
+              console.log({ user });
             }}
           />
           <DrawerItem
             label={({ focused, color }) => {
               return (
-                <Text
+                <CustomText
                   style={{
                     color: COLORS.secondary,
                     textTransform: "uppercase",
-                    fontWeight: "bold",
+
                     fontSize: 16,
                   }}
                   numberOfLines={1}
                 >
                   Eos store
-                </Text>
+                </CustomText>
               );
             }}
             onPress={() => {
@@ -414,17 +445,17 @@ export default function CustomDrawerContent(props: any) {
           <DrawerItem
             label={({ focused, color }) => {
               return (
-                <Text
+                <CustomText
                   style={{
                     color: COLORS.secondary,
                     textTransform: "uppercase",
-                    fontWeight: "bold",
+
                     fontSize: 16,
                   }}
                   numberOfLines={1}
                 >
                   eos gestión
-                </Text>
+                </CustomText>
               );
             }}
             onPress={() => {

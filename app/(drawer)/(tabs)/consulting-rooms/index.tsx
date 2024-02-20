@@ -7,27 +7,29 @@ import { api } from "../../../../src/api/api";
 import { GetAllDisciplinesResponse } from "../../../../src/interfaces/disciplines/disciplines.interface";
 import DisciplinesCard from "../../../../src/components/Disciplines/DisciplinesCard";
 import CustomText from "../../../../src/components/Customs/CustomText";
+import { GetAllRoomsResponse } from "../../../../src/interfaces/consulting/consulting.interface";
+import RoomsCard from "../../../../src/components/Consulting-rooms/RoomsCard";
 import { useAuthStore } from "../../../../src/zustand/authStore";
 
-const getAllDiciplines = async (): Promise<GetAllDisciplinesResponse> => {
+const getAllConsultingRooms = async (): Promise<GetAllRoomsResponse> => {
   try {
-    const response = await api.get("/DisciplinaHome/GetAsync");
+    const response = await api.get("/Consultorio/GetAsync");
 
     return response.data;
   } catch (error) {
     return {
       result: true,
       message: "Exito",
-      disciplines: [],
+      offices: [],
     };
   }
 };
 
 const Diciplines = () => {
   const { user } = useAuthStore();
-  const getAllDisciplinesQuery = useQuery({
-    queryKey: ["disciplines", user],
-    queryFn: getAllDiciplines,
+  const getAllConsultingRoomsQuery = useQuery({
+    queryKey: ["Consulting-rooms", user],
+    queryFn: getAllConsultingRooms,
     staleTime: 1000 * 60 * 60,
   });
 
@@ -36,27 +38,25 @@ const Diciplines = () => {
       {/* Header */}
 
       {/* Lista de diciplinas */}
-      {getAllDisciplinesQuery.isFetching ? (
+      {getAllConsultingRoomsQuery.isFetching ? (
         <Text>Cargando...</Text>
       ) : (
         <View style={{ flex: 1 }}>
-          {getAllDisciplinesQuery.data?.disciplines.length === 0 ? (
-            <Text>No hay disciplinas</Text>
+          {getAllConsultingRoomsQuery.data?.offices.length === 0 ? (
+            <Text>No hay consultorios</Text>
           ) : (
             <FlatList
-              data={getAllDisciplinesQuery.data?.disciplines}
+              data={getAllConsultingRoomsQuery.data?.offices}
               numColumns={2}
               columnWrapperStyle={{
                 gap: 16,
                 paddingHorizontal: 16,
               }}
               contentContainerStyle={{ gap: 16 }}
-              keyExtractor={(item) => item.idDiscipline.toString()}
+              keyExtractor={(item) => item.idOffice.toString()}
               showsVerticalScrollIndicator={false}
               renderItem={({ item }) => {
-                return (
-                  <DisciplinesCard key={item.idDiscipline} discipline={item} />
-                );
+                return <RoomsCard key={item.idOffice} room={item} />;
               }}
               ListHeaderComponent={
                 <View style={{ paddingTop: 32, paddingBottom: 16 }}>
@@ -68,7 +68,7 @@ const Diciplines = () => {
                       textAlign: "center",
                     }}
                   >
-                    Disciplina
+                    Consultorios
                   </CustomText>
                 </View>
               }

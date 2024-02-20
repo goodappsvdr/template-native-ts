@@ -15,12 +15,19 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   accessToken: null,
   isAuth: false,
 
-  setAccessToken: (token) => set({ accessToken: token, isAuth: true }),
+  setAccessToken: (token) => {
+    set({ accessToken: token, isAuth: true });
+    console.log("cambie el token");
+  },
 
-  setUser: (user) => set({ user: user }),
+  setUser: (user) => {
+    set({ user: user });
+    console.log("cambie el usuario", user);
+  },
 
   logout: async () => {
     set({ user: null, accessToken: null, isAuth: false });
     await SecureStore.deleteItemAsync("token");
+    console.log("logout");
   },
 }));

@@ -20,7 +20,7 @@ const tagsStyles: MixedStyleRecord = {
 const CustomRenderHtml = ({ htmlContent, width }: CustomRenderHtmlProps) => {
   const htmlContentFormatted = htmlContent
     .replace(/&nbsp;/g, "")
-    .replace(/<br>/g, "")
+    // .replace(/<br>/g, "")
     .replace(/bolder/g, "900");
   return (
     <RenderHTML

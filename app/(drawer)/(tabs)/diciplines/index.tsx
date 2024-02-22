@@ -63,7 +63,7 @@ const Diciplines = () => {
                   <CustomText
                     style={{
                       color: COLORS.primary,
-                      fontSize: 36,
+                      fontSize: 32,
                       textTransform: "uppercase",
                       textAlign: "center",
                     }}

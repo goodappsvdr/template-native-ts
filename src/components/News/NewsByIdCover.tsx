@@ -1,24 +1,22 @@
 import React from "react";
 import { Image, Text, View, useWindowDimensions } from "react-native";
 import { COLORS } from "../../Constants/Colors";
-import CustomRenderHtml from "./CustomRenderHtml";
 const imgCover = require("../../../assets/WavesCoverFina.png");
 
-interface CustomCoverProps {
+type Props = {
   imgSrc: string;
   title: string;
-  htmlContent: string;
+  subtitle: string;
   titleColor?: string;
-}
+};
 
-const CustomCover = ({
+const NewsByIdCover = ({
   imgSrc,
   title,
-  htmlContent,
+  subtitle,
   titleColor = COLORS.primary,
-}: CustomCoverProps) => {
+}: Props) => {
   const { width } = useWindowDimensions();
-
   return (
     <View style={{ backgroundColor: "#fff" }}>
       {/* Image y waves */}
@@ -57,10 +55,12 @@ const CustomCover = ({
         {title}
       </Text>
       <View>
-        <CustomRenderHtml htmlContent={htmlContent} width={width} />
+        <Text>{subtitle}</Text>
       </View>
     </View>
   );
 };
 
-export default CustomCover;
+export default NewsByIdCover;
+
+const styles = StyleSheet.create({});

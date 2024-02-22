@@ -2,12 +2,16 @@ import React from "react";
 import { Image, TouchableOpacity } from "react-native";
 import { Office } from "../../interfaces/consulting/consulting.interface";
 import CustomText from "../Customs/CustomText";
+import { router } from "expo-router";
 
 interface RoomsCardProps {
   room: Office;
 }
 
 const RoomsCard = ({ room }: RoomsCardProps) => {
+  const redirect = () => {
+    router.navigate(`/consulting-rooms/${room.idOffice}`);
+  };
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -19,6 +23,7 @@ const RoomsCard = ({ room }: RoomsCardProps) => {
         height: 240,
         position: "relative",
       }}
+      onPress={redirect}
     >
       <Image
         source={{

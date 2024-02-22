@@ -92,7 +92,7 @@ const MainLayout = () => {
           name="news"
           options={{
             title: "Noticias",
-            // headerShown: false,
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <NewsIcon
                 fill={focused ? COLORS.primary : COLORS.secondary}

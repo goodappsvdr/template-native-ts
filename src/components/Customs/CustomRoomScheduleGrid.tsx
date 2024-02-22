@@ -8,12 +8,14 @@ import DaysIcon from "../Icons/DaysIcon";
 import HoursIcon from "../Icons/HoursIcon";
 import TeacherIcon from "../Icons/TeacherIcon";
 import CustomSheduleCell from "./CustomSheduleCell";
+import { SchedulesOffice } from "../../interfaces/consulting/consulting.interface";
+import CustomRoomSheduleCell from "./CustomRoomSheduleCell";
 
 type Props = {
-  data: Schedule[];
+  data: SchedulesOffice[];
 };
 
-const CustomSheduleGrid = ({ data }: Props) => {
+const CustomRoomSheduleGrid = ({ data }: Props) => {
   if (data.length === 0)
     return <CustomText>No hay horarios disponibles</CustomText>;
 
@@ -21,9 +23,9 @@ const CustomSheduleGrid = ({ data }: Props) => {
     <View style={styles.container}>
       {data.map((schedule, index) => {
         return (
-          <CustomSheduleCell
+          <CustomRoomSheduleCell
             item={schedule}
-            key={schedule.idSchedule}
+            key={schedule.idScheduleOffice}
             width={data.length > 1 ? "50%" : "100%"}
           />
         );
@@ -32,7 +34,7 @@ const CustomSheduleGrid = ({ data }: Props) => {
   );
 };
 
-export default CustomSheduleGrid;
+export default CustomRoomSheduleGrid;
 
 const styles = StyleSheet.create({
   container: {

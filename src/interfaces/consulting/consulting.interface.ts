@@ -28,3 +28,18 @@ export interface SchedulesOffice {
   hour: string;
   idState: number;
 }
+
+export type EmployeeList = ConsultingRoomEmployee[] | [];
+
+export interface ConsultingRoomEmployee {
+  idEmpleado: number;
+  idEmpleadoTipo: number;
+  idDisciplina: number;
+  idConsultorio: number;
+  nombre: string;
+  apellido: string;
+  descripcion: string;
+  imagen: string;
+  tipo: any;
+  activo: boolean;
+}

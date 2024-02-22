@@ -18,7 +18,8 @@ const RootLayout = () => {
   const queryClient = new QueryClient();
   const [fontsLoaded, fontError] = useFonts({
     "Montserrat-Black": require("../assets/fonts/Montserrat-Black.ttf"),
-    Montserrat: require("../assets/fonts/Montserrat-VariableFont_wght.ttf"),
+    "Montserrat-Regular": require("../assets/fonts/Montserrat-Regular.ttf"),
+    "Montserrat-Bold": require("../assets/fonts/Montserrat-Bold.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {

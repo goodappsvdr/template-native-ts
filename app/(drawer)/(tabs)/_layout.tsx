@@ -27,7 +27,7 @@ const MainLayout = () => {
             left: 16,
             right: 16,
             backgroundColor: "white",
-            elevation: 1,
+            elevation: 2,
             borderRadius: 12,
             height: 64,
             paddingBottom: 8,

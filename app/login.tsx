@@ -27,6 +27,7 @@ import { useAuthStore } from "../src/zustand/authStore";
 import * as SecureStore from "expo-secure-store";
 import CustomText from "../src/components/Customs/CustomText";
 import { SecureStoreSetItemAsync } from "../src/Services/SecureStorageHelpers";
+import CustomLoginFooter from "../src/components/Customs/CustomLoginFooter";
 
 interface IFormInput {
   email: string;
@@ -202,7 +203,9 @@ export default function Page() {
             <CustomText style={styles.subtitle}>
               La felicidad se entrena
             </CustomText>
+            {/* Footer   */}
           </View>
+          <CustomLoginFooter />
         </ScrollView>
       </DissmissKeyboard>
     </KeyboardAvoidingView>
@@ -215,6 +218,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 24,
     paddingTop: 64,
+    paddingBottom: 0,
     gap: 16,
     width: "100%",
     display: "flex",

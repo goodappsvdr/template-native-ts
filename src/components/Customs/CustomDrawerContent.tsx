@@ -21,6 +21,7 @@ import VideosIcon from "../Icons/VideosIcon";
 import FooterBackgroundDrawer from "../Background/FooterBackgroundDrawer";
 import { useAuthStore } from "../../zustand/authStore";
 import CustomText from "./CustomText";
+import LogoGris from "../Icons/LogoGris";
 
 export default function CustomDrawerContent(props: any) {
   const router = useRouter();
@@ -40,16 +41,10 @@ export default function CustomDrawerContent(props: any) {
         <View
           style={{
             marginHorizontal: 16,
+            marginBottom: 16,
           }}
         >
-          <CustomText
-            style={{
-              color: "#000",
-              fontSize: 50,
-            }}
-          >
-            LOGO
-          </CustomText>
+          <LogoGris width={160} height={80} />
         </View>
 
         {/* USUARIO Y FOTO DE PERFIL */}

@@ -33,7 +33,8 @@
         {
           "fonts": [
             "./assets/fonts/Montserrat-Black.ttf",
-            "./assets/fonts/Montserrat-VariableFont_wght.ttf"
+            "./assets/fonts/Montserrat-Bold.ttf",
+            "./assets/fonts/Montserrat-Regular.ttf"
           ]
         }
       ]

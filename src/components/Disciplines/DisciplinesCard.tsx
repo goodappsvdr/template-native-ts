@@ -15,6 +15,7 @@ const DisciplinesCard = ({ discipline }: DisciplinesCardProps) => {
 
   return (
     <TouchableOpacity
+      activeOpacity={0.7}
       style={{
         display: "flex",
         justifyContent: "center",

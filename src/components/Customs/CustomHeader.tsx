@@ -5,6 +5,7 @@ import { Pressable, View } from "react-native";
 import MenuIcon from "../Icons/MenuIcon";
 import GoBackIcon from "../Icons/GoBackIcon";
 import { COLORS } from "../../Constants/Colors";
+import LogoBlancoAmarillo from "../Icons/LogoBlancoAmarillo";
 
 interface CustomHeaderProps {
   goBackEnabled: boolean;
@@ -48,6 +49,23 @@ const CustomHeader = ({ goBackEnabled }: CustomHeaderProps) => {
       </View>
 
       {/* title */}
+      <View
+        style={{
+          alignContent: "flex-end",
+          justifyContent: "center",
+          height: 128,
+          position: "absolute",
+          left: "50%",
+          bottom: 16,
+          transform: [{ translateX: -60 }],
+        }}
+      >
+        <LogoBlancoAmarillo
+          height={56}
+          width={120}
+          style={{ marginTop: "auto" }}
+        />
+      </View>
 
       {/* right */}
       <View>

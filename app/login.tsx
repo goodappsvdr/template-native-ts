@@ -114,106 +114,110 @@ export default function Page() {
         >
           <BackroundYellow />
           <View style={styles.container}>
-            <CustomText style={styles.title}>Bienvenido!</CustomText>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({
-                field: { onChange, onBlur, value },
-                fieldState: { error },
-              }) => (
-                <CustomTextField
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  error={error}
-                  type="email"
-                  placeholder="Email"
-                  startAdorment={
-                    <UserIcon fill={"#000"} height={20} width={20} />
-                  }
-                />
-              )}
-              name="email"
-            />
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({
-                field: { onChange, onBlur, value },
-                fieldState: { error },
-              }) => (
-                <CustomTextField
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  error={error}
-                  type={showPassword ? "text" : "password"}
-                  placeholder="DNI"
-                  startAdorment={
-                    <PasswordIcon fill={"#000"} height={20} width={20} />
-                  }
-                  endAdornment={
-                    <Pressable onPress={togglePassword}>
-                      <Text style={styles.preseable}>
-                        {showPassword ? (
-                          <Ionicons
-                            name="eye-off-outline"
-                            size={24}
-                            color={"black"}
-                          />
-                        ) : (
-                          <Ionicons
-                            name="eye-outline"
-                            size={24}
-                            color={"black"}
-                          />
-                        )}
-                      </Text>
-                    </Pressable>
-                  }
-                />
-              )}
-              name="dni"
-            />
+            <View style={{ gap: 16 }}>
+              <CustomText style={styles.title}>Bienvenido!</CustomText>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <CustomTextField
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    error={error}
+                    type="email"
+                    placeholder="Email"
+                    startAdorment={
+                      <UserIcon fill={"#000"} height={20} width={20} />
+                    }
+                  />
+                )}
+                name="email"
+              />
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({
+                  field: { onChange, onBlur, value },
+                  fieldState: { error },
+                }) => (
+                  <CustomTextField
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    error={error}
+                    type={showPassword ? "text" : "password"}
+                    placeholder="DNI"
+                    startAdorment={
+                      <PasswordIcon fill={"#000"} height={20} width={20} />
+                    }
+                    endAdornment={
+                      <Pressable onPress={togglePassword}>
+                        <Text style={styles.preseable}>
+                          {showPassword ? (
+                            <Ionicons
+                              name="eye-off-outline"
+                              size={24}
+                              color={"black"}
+                            />
+                          ) : (
+                            <Ionicons
+                              name="eye-outline"
+                              size={24}
+                              color={"black"}
+                            />
+                          )}
+                        </Text>
+                      </Pressable>
+                    }
+                  />
+                )}
+                name="dni"
+              />
 
-            <Link href={"/forgetuser"} style={styles.forgetLink}>
-              <CustomText>Olvidé mi usuario</CustomText>
-            </Link>
-
-            <Pressable
-              onPress={handleSubmit(submitForm)}
-              style={({ pressed }) => [
-                { backgroundColor: pressed ? "#de8e02" : "#fab60a" },
-                styles.submitBtn,
-              ]}
-            >
-              <CustomText style={[styles.submitBtnText]}>Continuar</CustomText>
-            </Pressable>
-
-            <View
-              style={{
-                marginTop: 32,
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                flex: 1,
-              }}
-            >
-              <CustomText>
-                ¿Aún no sos usuario de Eos Distrito Deportivo?
-              </CustomText>
-
-              <Link href="/register">
-                <CustomText style={{ textTransform: "uppercase" }}>
-                  Registrate aquí
-                </CustomText>
+              <Link href={"/forgetuser"} style={styles.forgetLink}>
+                <CustomText>Olvidé mi usuario</CustomText>
               </Link>
-            </View>
 
-            {/* Footer   */}
+              <Pressable
+                onPress={handleSubmit(submitForm)}
+                style={({ pressed }) => [
+                  { backgroundColor: pressed ? "#de8e02" : "#fab60a" },
+                  styles.submitBtn,
+                ]}
+              >
+                <CustomText style={[styles.submitBtnText]}>
+                  Continuar
+                </CustomText>
+              </Pressable>
+
+              <View
+                style={{
+                  marginTop: 32,
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flex: 1,
+                }}
+              >
+                <CustomText>
+                  ¿Aún no sos usuario de Eos Distrito Deportivo?
+                </CustomText>
+
+                <Link href="/register">
+                  <CustomText style={{ textTransform: "uppercase" }}>
+                    Registrate aquí
+                  </CustomText>
+                </Link>
+              </View>
+
+              {/* Footer   */}
+            </View>
           </View>
           <CustomText style={styles.subtitle}>
             La felicidad se entrena
@@ -236,7 +240,7 @@ const styles = StyleSheet.create({
     display: "flex",
     position: "relative",
     backgroundColor: "#fff0000",
-    marginHorizontal: "auto",
+    justifyContent: "center",
   },
   title: {
     fontSize: 36,

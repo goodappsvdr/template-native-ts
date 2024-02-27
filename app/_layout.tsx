@@ -7,12 +7,12 @@ import { AxiosInterceptor } from "../src/api/axios.interceptor";
 import { useFonts } from "expo-font";
 import { useCallback } from "react";
 import { View } from "react-native";
+import * as Notifications from "expo-notifications";
+import PushNotificationLayout from "../src/Notifications/PushNotification";
+import Toast from "react-native-toast-message";
+import { toastConfig } from "../src/ToastConfig/ToastConfig";
 
 AxiosInterceptor();
-
-export const unstable_settings = {
-  initialRouteName: "home",
-};
 
 const RootLayout = () => {
   const queryClient = new QueryClient();
@@ -34,33 +34,36 @@ const RootLayout = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        <Stack
-          initialRouteName="home"
-          screenOptions={{
-            gestureEnabled: false,
-          }}
-        >
-          <Stack.Screen
-            name="index"
-            options={{
-              headerShown: false,
+      <PushNotificationLayout>
+        <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+          <Stack
+            initialRouteName="home"
+            screenOptions={{
+              gestureEnabled: false,
             }}
-          />
-          <Stack.Screen
-            name="login"
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="(drawer)"
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack>
-      </View>
+          >
+            <Stack.Screen
+              name="index"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="login"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="(drawer)"
+              options={{
+                headerShown: false,
+              }}
+            />
+          </Stack>
+        </View>
+        <Toast config={toastConfig} />
+      </PushNotificationLayout>
     </QueryClientProvider>
   );
 };

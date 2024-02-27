@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, Text, View, useWindowDimensions } from "react-native";
 import { COLORS } from "../../Constants/Colors";
+import ShareButton from "../Customs/CustomSHareButton";
 const imgCover = require("../../../assets/WavesCoverFina.png");
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
   title: string;
   subtitle: string;
   titleColor?: string;
+  url: string;
 };
 
 const NewsByIdCover = ({
@@ -15,6 +17,7 @@ const NewsByIdCover = ({
   title,
   subtitle,
   titleColor = COLORS.primary,
+  url,
 }: Props) => {
   const { width } = useWindowDimensions();
   return (
@@ -42,19 +45,37 @@ const NewsByIdCover = ({
           }}
         />
       </View>
-
-      <Text
+      <View
         style={{
-          fontSize: 32,
-          fontFamily: "Montserrat-Black",
-          color: titleColor,
-          textTransform: "uppercase",
+          flexDirection: "row",
+          padding: 16,
+          alignItems: "center",
+          gap: 16,
+          flex: 1,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 32,
+            fontFamily: "Montserrat-Black",
+            color: titleColor,
+            textTransform: "uppercase",
+            flex: 1,
+          }}
+        >
+          {title}
+        </Text>
+        {/* boton de compartir */}
+        <View>
+          <ShareButton url={url} title={title} />
+        </View>
+      </View>
+
+      <View
+        style={{
           padding: 16,
         }}
       >
-        {title}
-      </Text>
-      <View>
         <Text>{subtitle}</Text>
       </View>
     </View>
@@ -62,5 +83,3 @@ const NewsByIdCover = ({
 };
 
 export default NewsByIdCover;
-
-const styles = StyleSheet.create({});

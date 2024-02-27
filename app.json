@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "template-native-ts",
-    "slug": "template-native-ts",
-    "scheme": "template-native-ts",
+    "name": "eos-app",
+    "slug": "eos-app",
+    "scheme": "eos-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,7 +20,9 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.emmabria.eosapp",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -38,6 +40,14 @@
           ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "76c1d019-0fef-4019-80a0-4e4f37dc34d2"
+      }
+    }
   }
 }

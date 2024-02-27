@@ -1,5 +1,11 @@
 import { FieldError, Noop } from "react-hook-form";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  View,
+} from "react-native";
 import { InputType } from "../types";
 
 interface CustomTextFieldProps {
@@ -10,6 +16,7 @@ interface CustomTextFieldProps {
   type?: InputType;
   endAdornment?: React.ReactNode;
   startAdorment?: React.ReactNode;
+  inputProps?: TextInputProps;
 }
 
 export const CustomTextField = ({
@@ -20,6 +27,7 @@ export const CustomTextField = ({
   type = "text",
   endAdornment,
   startAdorment,
+  inputProps,
 }: CustomTextFieldProps) => {
   return (
     <View>
@@ -34,6 +42,7 @@ export const CustomTextField = ({
           onChangeText={onChangeText}
           onBlur={onBlur}
           placeholder={placeholder}
+          {...inputProps}
         />
         {
           // si hay un endAdornment se muestra

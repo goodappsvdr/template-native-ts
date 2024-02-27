@@ -1,12 +1,15 @@
 import { create } from "zustand";
 import * as SecureStore from "expo-secure-store";
+import { Clients, Contract } from "../interfaces/auth/auth.interface";
 
 interface IAuthStore {
-  user: any;
+  user: Clients | null;
   accessToken: string | null;
   isAuth: boolean;
+  contracts: Contract[] | [];
   setAccessToken: (token: string) => void;
   setUser: (user: any) => void;
+  setContracts: (contracts: Contract[]) => void;
   logout: () => void;
 }
 
@@ -14,6 +17,7 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   user: null,
   accessToken: null,
   isAuth: false,
+  contracts: [],
 
   setAccessToken: (token) => {
     set({ accessToken: token, isAuth: true });
@@ -22,7 +26,10 @@ export const useAuthStore = create<IAuthStore>((set) => ({
 
   setUser: (user) => {
     set({ user: user });
-    console.log("cambie el usuario", user);
+  },
+
+  setContracts: (contracts: Contract[]) => {
+    set({ contracts: contracts });
   },
 
   logout: async () => {

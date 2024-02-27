@@ -1,6 +1,13 @@
 import { Link } from "expo-router";
 import React from "react";
-import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { COLORS } from "../../../../src/Constants/Colors";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { api } from "../../../../src/api/api";
@@ -10,6 +17,7 @@ import CustomText from "../../../../src/components/Customs/CustomText";
 import { GetAllRoomsResponse } from "../../../../src/interfaces/consulting/consulting.interface";
 import RoomsCard from "../../../../src/components/Consulting-rooms/RoomsCard";
 import { useAuthStore } from "../../../../src/zustand/authStore";
+import TwoColumnListSkeleton from "../../../../src/components/Skeletons/TwoColumnListSkeleton";
 
 const getAllConsultingRooms = async (): Promise<GetAllRoomsResponse> => {
   try {
@@ -38,8 +46,9 @@ const Diciplines = () => {
       {/* Header */}
 
       {/* Lista de diciplinas */}
-      {getAllConsultingRoomsQuery.isFetching ? (
-        <Text>Cargando...</Text>
+      {getAllConsultingRoomsQuery.isFetching &&
+      !getAllConsultingRoomsQuery.isRefetching ? (
+        <TwoColumnListSkeleton />
       ) : (
         <View style={{ flex: 1 }}>
           {getAllConsultingRoomsQuery.data?.offices.length === 0 ? (
@@ -58,6 +67,12 @@ const Diciplines = () => {
               renderItem={({ item }) => {
                 return <RoomsCard key={item.idOffice} room={item} />;
               }}
+              refreshControl={
+                <RefreshControl
+                  refreshing={getAllConsultingRoomsQuery.isRefetching}
+                  onRefresh={getAllConsultingRoomsQuery.refetch}
+                />
+              }
               ListHeaderComponent={
                 <View style={{ paddingTop: 32, paddingBottom: 16 }}>
                   <CustomText

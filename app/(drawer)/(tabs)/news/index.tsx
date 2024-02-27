@@ -1,4 +1,10 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import { api } from "../../../../src/api/api";
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +12,7 @@ import { NewsList } from "../../../../src/interfaces/news/news.interface";
 import CustomText from "../../../../src/components/Customs/CustomText";
 import NewsListCard from "../../../../src/components/News/NewsListCard";
 import { COLORS } from "../../../../src/Constants/Colors";
+import NewsListSkeleton from "../../../../src/components/Skeletons/NewsListSkeleton";
 
 const getAllNews = async (): Promise<NewsList> => {
   const response = await api.get("Noticias/GetFront");
@@ -22,12 +29,19 @@ const News = (props: Props) => {
   });
 
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={getAllNewsQuery.isRefetching}
+          onRefresh={getAllNewsQuery.refetch}
+        />
+      }
+    >
       {/* Header */}
 
       {/* Lista de Noticias */}
-      {getAllNewsQuery.isFetching ? (
-        <Text>Cargando...</Text>
+      {getAllNewsQuery.isFetching && !getAllNewsQuery.isRefetching ? (
+        <NewsListSkeleton />
       ) : (
         <View style={{ flex: 1, paddingHorizontal: 16, paddingBottom: 96 }}>
           <CustomText

@@ -20,3 +20,14 @@ export interface News {
   video: any;
   imagenVideo: any;
 }
+
+export interface NewsVideoAndImage {
+  image: string;
+  video: string;
+}
+
+export type NewsImageList = NewsImage[] | [];
+
+export interface NewsImage {
+  image: string;
+}

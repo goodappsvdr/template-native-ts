@@ -21,10 +21,10 @@ const BackroundYellow = () => {
           position: "absolute",
           zIndex: 10,
           top: "50%",
-          transform: [{ translateY: -100 }],
+          transform: [{ translateY: -60 }],
         }}
       >
-        <LogoBlancoGris width={200} height={200} />
+        <LogoBlancoGris width={120} height={120} />
       </View>
       <Image
         source={fondo}

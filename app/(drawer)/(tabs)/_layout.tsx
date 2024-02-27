@@ -106,7 +106,7 @@ const MainLayout = () => {
           name="profile"
           options={{
             title: "Perfil",
-            // headerShown: false,
+            headerShown: false,
             tabBarIcon: ({ focused }) => (
               <ProfileIcon
                 fill={focused ? COLORS.primary : COLORS.secondary}

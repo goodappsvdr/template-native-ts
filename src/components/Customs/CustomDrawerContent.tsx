@@ -4,7 +4,12 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { useQueryErrorResetBoundary } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
+import {
+  useGlobalSearchParams,
+  useLocalSearchParams,
+  usePathname,
+  useRouter,
+} from "expo-router";
 import { Image, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import GoBackIcon from "../Icons/GoBackIcon";
@@ -22,18 +27,28 @@ import FooterBackgroundDrawer from "../Background/FooterBackgroundDrawer";
 import { useAuthStore } from "../../zustand/authStore";
 import CustomText from "./CustomText";
 import LogoGris from "../Icons/LogoGris";
+const userMasculino = require("../../../assets/UserMasculino.png");
+const userFemenino = require("../../../assets/UserFemenino.png");
 
 export default function CustomDrawerContent(props: any) {
   const router = useRouter();
+  const params = useGlobalSearchParams();
+  const pathname = usePathname();
   const { user } = useAuthStore();
   const { top, bottom } = useSafeAreaInsets();
+
+  const userImg = user?.image.match("/UserFemenino.svg")
+    ? userFemenino
+    : user?.image.match("/UserMasculino.svg")
+    ? userMasculino
+    : { uri: user?.image };
 
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         style={{ flex: 1, flexDirection: "column" }}
         {...props}
-        contentContainerStyle={{ paddingTop: top }}
+        contentContainerStyle={{ paddingTop: top, flexGrow: 1 }}
       >
         {/* <DrawerItemList {...props} /> */}
 
@@ -62,9 +77,7 @@ export default function CustomDrawerContent(props: any) {
             }}
           >
             <Image
-              source={{
-                uri: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/MasterYi_0.jpg",
-              }}
+              source={userImg}
               style={{
                 width: 74,
                 height: 74,
@@ -81,7 +94,7 @@ export default function CustomDrawerContent(props: any) {
                 flexWrap: "wrap",
               }}
             >
-              {user.unique_name}
+              {user.name}
             </CustomText>
             {/* flecha */}
             <View>
@@ -123,6 +136,9 @@ export default function CustomDrawerContent(props: any) {
               );
             }}
             onPress={() => {
+              if (pathname === "/home") {
+                return;
+              }
               router.push("/home");
             }}
             icon={({ focused, color, size }) => {
@@ -152,6 +168,11 @@ export default function CustomDrawerContent(props: any) {
               );
             }}
             onPress={() => {
+              if (pathname === "/profile") {
+                return;
+              } else if (pathname === "reclamos") {
+                router.replace("/profile");
+              }
               router.push("/profile");
             }}
             icon={({ focused, color, size }) => {
@@ -253,6 +274,9 @@ export default function CustomDrawerContent(props: any) {
               );
             }}
             onPress={() => {
+              if (pathname === "/diciplines") {
+                return;
+              }
               router.push("/diciplines");
             }}
             icon={({ focused, color, size }) => {
@@ -282,6 +306,9 @@ export default function CustomDrawerContent(props: any) {
               );
             }}
             onPress={() => {
+              if (pathname === "/consulting-rooms") {
+                return;
+              }
               router.push("/consulting-rooms");
             }}
             icon={({ focused, color, size }) => {
@@ -311,6 +338,9 @@ export default function CustomDrawerContent(props: any) {
               );
             }}
             onPress={() => {
+              if (pathname === "/news") {
+                return;
+              }
               router.push("/news");
             }}
             icon={({ focused, color, size }) => {
@@ -325,36 +355,38 @@ export default function CustomDrawerContent(props: any) {
             }}
           />
           {user && (
-            <DrawerItem
-              label={({ focused, color }) => {
-                return (
-                  <CustomText
-                    style={{
-                      color: COLORS.secondary,
-                      textTransform: "uppercase",
+            <>
+              <DrawerItem
+                label={({ focused, color }) => {
+                  return (
+                    <CustomText
+                      style={{
+                        color: COLORS.secondary,
+                        textTransform: "uppercase",
 
-                      fontSize: 16,
-                    }}
-                    numberOfLines={1}
-                  >
-                    Reclamos
-                  </CustomText>
-                );
-              }}
-              onPress={() => {
-                router.push("/");
-              }}
-              icon={({ focused, color, size }) => {
-                return (
-                  <ClaimsIcon
-                    fill={COLORS.secondary}
-                    height={24}
-                    width={24}
-                    style={{ marginRight: -16 }}
-                  />
-                );
-              }}
-            />
+                        fontSize: 16,
+                      }}
+                      numberOfLines={1}
+                    >
+                      Reclamos
+                    </CustomText>
+                  );
+                }}
+                onPress={() => {
+                  router.navigate("/profile/claims");
+                }}
+                icon={({ focused, color, size }) => {
+                  return (
+                    <ClaimsIcon
+                      fill={COLORS.secondary}
+                      height={24}
+                      width={24}
+                      style={{ marginRight: -16 }}
+                    />
+                  );
+                }}
+              />
+            </>
           )}
           <DrawerItem
             label={({ focused, color }) => {

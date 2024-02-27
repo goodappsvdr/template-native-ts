@@ -1,6 +1,13 @@
 import { Link } from "expo-router";
 import React from "react";
-import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { COLORS } from "../../../../src/Constants/Colors";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
 import { api } from "../../../../src/api/api";
@@ -8,6 +15,7 @@ import { GetAllDisciplinesResponse } from "../../../../src/interfaces/discipline
 import DisciplinesCard from "../../../../src/components/Disciplines/DisciplinesCard";
 import CustomText from "../../../../src/components/Customs/CustomText";
 import { useAuthStore } from "../../../../src/zustand/authStore";
+import TwoColumnListSkeleton from "../../../../src/components/Skeletons/TwoColumnListSkeleton";
 
 const getAllDiciplines = async (): Promise<GetAllDisciplinesResponse> => {
   try {
@@ -36,8 +44,9 @@ const Diciplines = () => {
       {/* Header */}
 
       {/* Lista de diciplinas */}
-      {getAllDisciplinesQuery.isFetching ? (
-        <Text>Cargando...</Text>
+      {getAllDisciplinesQuery.isFetching &&
+      !getAllDisciplinesQuery.isRefetching ? (
+        <TwoColumnListSkeleton />
       ) : (
         <View style={{ flex: 1 }}>
           {getAllDisciplinesQuery.data?.disciplines.length === 0 ? (
@@ -50,6 +59,12 @@ const Diciplines = () => {
                 gap: 16,
                 paddingHorizontal: 16,
               }}
+              refreshControl={
+                <RefreshControl
+                  refreshing={getAllDisciplinesQuery.isRefetching}
+                  onRefresh={getAllDisciplinesQuery.refetch}
+                />
+              }
               contentContainerStyle={{ gap: 16 }}
               keyExtractor={(item) => item.idDiscipline.toString()}
               showsVerticalScrollIndicator={false}
@@ -68,7 +83,7 @@ const Diciplines = () => {
                       textAlign: "center",
                     }}
                   >
-                    Disciplina
+                    Disciplinas
                   </CustomText>
                 </View>
               }

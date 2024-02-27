@@ -1,17 +1,57 @@
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import {
+  RefreshControl,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import React from "react";
 import { api } from "../../../../src/api/api";
-import { News } from "../../../../src/interfaces/news/news.interface";
+import {
+  News,
+  NewsImageList,
+  NewsList,
+  NewsVideoAndImage,
+} from "../../../../src/interfaces/news/news.interface";
 import { useLocalSearchParams } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
+import { ScrollView } from "react-native-gesture-handler";
+import NewsByIdCover from "../../../../src/components/News/NewsByIdCover";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import CustomYoutubePlayer from "../../../../src/components/Customs/CustomYoutubePlayer";
+import CustomRenderHtml from "../../../../src/components/Customs/CustomRenderHtml";
+import NewsTopImages from "../../../../src/components/News/NewsTopImages";
+import NewsBottomImages from "../../../../src/components/News/NewsBottomImages";
 
 const getNewsById = async ({
-  querykey,
+  queryKey,
 }: {
-  querykey: [string, string];
-}): Promise<News> => {
-  const id = querykey[1];
+  queryKey: [string, string];
+}): Promise<NewsList> => {
+  const id = queryKey[1];
   const response = await api.get(`/Noticias/GetFront/${id}`);
+
+  return response.data;
+};
+
+const getVideoAndImage = async ({
+  queryKey,
+}: {
+  queryKey: [string, string];
+}): Promise<NewsVideoAndImage> => {
+  const id = queryKey[1];
+  const response = await api.get(`/NoticiasImagenes/GetVideoAndImage/${id}`);
+
+  return response.data;
+};
+
+const getNewsImages = async ({
+  queryKey,
+}: {
+  queryKey: [string, string];
+}): Promise<NewsImageList> => {
+  const id = queryKey[1];
+  const response = await api.get(`/NoticiasImagenes/GetImage/${id}`);
 
   return response.data;
 };
@@ -29,10 +69,67 @@ const NewsById = () => {
     queryKey: ["newsById", id],
     queryFn: getNewsById,
   });
+  const getNewsVideoAndImageQuery = useQuery({
+    queryKey: ["newsVideoAndImage", id],
+    queryFn: getVideoAndImage,
+  });
+  const getNewsImagesQuery = useQuery({
+    queryKey: ["newsImages", id],
+    queryFn: getNewsImages,
+  });
+
+  const refresh = () => {
+    getNewsByIdQuery.refetch();
+    getNewsVideoAndImageQuery.refetch();
+  };
   return (
-    <View>
-      <Text>NewsById</Text>
-    </View>
+    <ScrollView
+      style={{ flex: 1, backgroundColor: "#fff" }}
+      refreshControl={
+        <RefreshControl
+          refreshing={getNewsByIdQuery.isRefetching}
+          onRefresh={() => refresh()}
+        />
+      }
+    >
+      {getNewsByIdQuery.isError ? (
+        <Text>Error al cargar la noticia</Text>
+      ) : getNewsByIdQuery.isFetching ? (
+        <Text>Cargando...</Text>
+      ) : getNewsByIdQuery.data?.length === 0 ? (
+        <Text>No hay noticia</Text>
+      ) : (
+        <View style={{ flex: 1, paddingBottom: 96 }}>
+          <NewsByIdCover
+            imgSrc={getNewsByIdQuery.data![0].imagenPrincipalCelular}
+            title={getNewsByIdQuery.data![0].titulo}
+            subtitle={getNewsByIdQuery.data![0].subTitulo}
+            url={`https://eosdistritodeportivo.com/Noticias/NoticiasDetalle/ID=${
+              getNewsByIdQuery.data![0].idNoticia
+            }`}
+          />
+
+          {getNewsVideoAndImageQuery.data?.video && (
+            <CustomYoutubePlayer
+              videoId={getNewsVideoAndImageQuery.data?.video}
+            />
+          )}
+
+          {getNewsImagesQuery.data && getNewsImagesQuery.data.length > 1 && (
+            <NewsTopImages images={getNewsImagesQuery.data.slice(0, 2)} />
+          )}
+          {/* Texto contenido */}
+          <CustomRenderHtml
+            htmlContent={getNewsByIdQuery.data![0].contenido!}
+            width={width}
+          />
+
+          {getNewsImagesQuery.data && getNewsImagesQuery.data.length > 1 && (
+            <NewsBottomImages images={getNewsImagesQuery.data.slice(2)} />
+          )}
+        </View>
+      )}
+    </ScrollView>
   );
 };
 

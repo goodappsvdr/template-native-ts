@@ -1,4 +1,5 @@
 import {
+  FlatList,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -95,11 +96,22 @@ export default function Page() {
     <KeyboardAvoidingView
       style={{
         flex: 1,
+        backgroundColor: "#fff",
       }}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <DissmissKeyboard>
-        <ScrollView style={{ flex: 1, position: "relative" }}>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+          }}
+          style={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+          }}
+        >
           <BackroundYellow />
           <View style={styles.container}>
             <CustomText style={styles.title}>Bienvenido!</CustomText>
@@ -187,6 +199,7 @@ export default function Page() {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                flex: 1,
               }}
             >
               <CustomText>
@@ -200,11 +213,11 @@ export default function Page() {
               </Link>
             </View>
 
-            <CustomText style={styles.subtitle}>
-              La felicidad se entrena
-            </CustomText>
             {/* Footer   */}
           </View>
+          <CustomText style={styles.subtitle}>
+            La felicidad se entrena
+          </CustomText>
           <CustomLoginFooter />
         </ScrollView>
       </DissmissKeyboard>
@@ -215,18 +228,18 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    padding: 24,
-    paddingTop: 64,
+    padding: 32,
+    paddingTop: 0,
     paddingBottom: 0,
     gap: 16,
     width: "100%",
     display: "flex",
     position: "relative",
-    backgroundColor: "#fff",
+    backgroundColor: "#fff0000",
+    marginHorizontal: "auto",
   },
   title: {
-    fontSize: 54,
+    fontSize: 36,
     textAlign: "center",
     marginBottom: 32,
   },

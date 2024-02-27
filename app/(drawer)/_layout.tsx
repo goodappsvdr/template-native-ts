@@ -13,14 +13,18 @@ import {
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import "core-js/stable/atob";
 import { useAuthStore } from "../../src/zustand/authStore";
+import { api } from "../../src/api/api";
+import { AxiosResponse } from "axios";
+import { ClientesGetAsyncResponse } from "../../src/interfaces/auth/auth.interface";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 interface IUserInfo extends JwtPayload {
   email: string;
   unique_name: string;
+  nameid: string;
 }
 
 const getUserInfo = async () => {
-  console.log("getuserinfo");
   try {
     let token;
 
@@ -53,13 +57,13 @@ const getUserInfo = async () => {
       return false;
     }
 
-    await SecureStoreSetItemAsync("email", decodedToken.email);
-    await SecureStoreSetItemAsync("unique_name", decodedToken.unique_name);
+    console.log(decodedToken.nameid);
+    const response = await api.get(`/Clientes/GetAsync/${decodedToken.nameid}`);
 
-    useAuthStore.getState().setUser({
-      email: decodedToken.email,
-      unique_name: decodedToken.unique_name,
-    });
+    const data = response.data as ClientesGetAsyncResponse;
+
+    useAuthStore.getState().setUser(data.clients);
+    useAuthStore.getState().setContracts(data.contracts);
 
     return decodedToken;
   } catch (error) {
@@ -69,8 +73,6 @@ const getUserInfo = async () => {
 };
 
 const DrawerMenu = () => {
-  const navigation = useNavigation() as DrawerNavigationProp<{}>;
-
   const { accessToken } = useAuthStore();
 
   const validateSessionQuery = useQuery({

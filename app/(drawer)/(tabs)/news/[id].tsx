@@ -22,6 +22,7 @@ import CustomYoutubePlayer from "../../../../src/components/Customs/CustomYoutub
 import CustomRenderHtml from "../../../../src/components/Customs/CustomRenderHtml";
 import NewsTopImages from "../../../../src/components/News/NewsTopImages";
 import NewsBottomImages from "../../../../src/components/News/NewsBottomImages";
+import ProfileSkeleton from "../../../../src/components/Skeletons/ProfileSkeleton";
 
 const getNewsById = async ({
   queryKey,
@@ -95,7 +96,7 @@ const NewsById = () => {
       {getNewsByIdQuery.isError ? (
         <Text>Error al cargar la noticia</Text>
       ) : getNewsByIdQuery.isFetching ? (
-        <Text>Cargando...</Text>
+        <ProfileSkeleton />
       ) : getNewsByIdQuery.data?.length === 0 ? (
         <Text>No hay noticia</Text>
       ) : (

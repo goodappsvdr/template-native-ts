@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "../../../../src/api/api";
 import { useAuthStore } from "../../../../src/zustand/authStore";
 import Toast from "react-native-toast-message";
+import { router } from "expo-router";
 
 const claimSchema = z.object({
   descripcion: z
@@ -68,6 +69,7 @@ const newCLaim = (props: Props) => {
         type: "success",
         text1: "Reclamo enviado",
       });
+      router.replace("/profile/claims");
       form.reset();
     },
     onError: (error) => {

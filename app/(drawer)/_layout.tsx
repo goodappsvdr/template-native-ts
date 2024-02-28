@@ -17,6 +17,7 @@ import { api } from "../../src/api/api";
 import { AxiosResponse } from "axios";
 import { ClientesGetAsyncResponse } from "../../src/interfaces/auth/auth.interface";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import GeneralLoader from "../../src/components/Skeletons/GeneralLoader";
 
 interface IUserInfo extends JwtPayload {
   email: string;
@@ -85,7 +86,7 @@ const DrawerMenu = () => {
   });
 
   if (validateSessionQuery.isPending) {
-    return <Text>Loading...</Text>;
+    return <GeneralLoader />;
   }
 
   return (

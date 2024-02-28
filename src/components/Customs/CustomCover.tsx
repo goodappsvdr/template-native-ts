@@ -2,7 +2,8 @@ import React from "react";
 import { Image, Text, View, useWindowDimensions } from "react-native";
 import { COLORS } from "../../Constants/Colors";
 import CustomRenderHtml from "./CustomRenderHtml";
-const imgCover = require("../../../assets/WavesCoverFina.png");
+import Animated from "react-native-reanimated";
+import WavesBlanco from "../Icons/WavesCoverBlanco";
 
 interface CustomCoverProps {
   imgSrc: string;
@@ -32,17 +33,17 @@ const CustomCover = ({
             resizeMode: "cover",
           }}
         />
-
-        <Image
-          source={imgCover}
+        <View
           style={{
-            width: width,
-            height: width / 9,
-            resizeMode: "stretch",
             position: "absolute",
             bottom: 0,
+            height: 40,
+            zIndex: 20,
+            width: "100%",
           }}
-        />
+        >
+          <WavesBlanco width={width} height={width / 8} />
+        </View>
       </View>
 
       <Text

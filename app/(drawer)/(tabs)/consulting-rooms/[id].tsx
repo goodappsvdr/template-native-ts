@@ -14,6 +14,7 @@ import {
   EmployeeList,
   GetRoomByIdResponse,
 } from "../../../../src/interfaces/consulting/consulting.interface";
+import ProfileSkeleton from "../../../../src/components/Skeletons/ProfileSkeleton";
 
 const getRoomById = async ({
   queryKey,
@@ -67,7 +68,7 @@ const RoomsById = () => {
       }
     >
       {getRoomByIdQuery.isPending ? (
-        <Text>Cargando...</Text>
+        <ProfileSkeleton />
       ) : (
         <View style={{ paddingBottom: 96, flex: 1 }}>
           <CustomCover

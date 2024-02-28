@@ -15,6 +15,8 @@ import CustomSheduleGrid from "../../../../src/components/Customs/CustomSheduleG
 import CustomInvestmentGrid from "../../../../src/components/Customs/CustomInvestmentGrid";
 import CustomTeacherList from "../../../../src/components/Customs/CustomTeacherList";
 import CustomPaymentMehods from "../../../../src/components/Customs/CustomPaymentMehods";
+import Animated, { FadeIn, FadeInUp } from "react-native-reanimated";
+import ProfileSkeleton from "../../../../src/components/Skeletons/ProfileSkeleton";
 
 const getDiciplineById = async ({
   queryKey,
@@ -45,7 +47,7 @@ const DiciplinesByID = () => {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       {getDiciplineByIdQuery.isPending ? (
-        <Text>Cargando...</Text>
+        <ProfileSkeleton />
       ) : (
         <View style={{ flex: 1, paddingBottom: 96 }}>
           {/* COVER */}

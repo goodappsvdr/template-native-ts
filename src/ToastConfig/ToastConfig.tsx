@@ -43,6 +43,7 @@ export const toastConfig = {
       text2Style={{
         fontSize: 15,
       }}
+      style={{ borderLeftColor: COLORS.disabledBg }}
     />
   ),
 };

@@ -3,6 +3,7 @@ import { Image, TouchableOpacity } from "react-native";
 import { Disciplines } from "../../interfaces/disciplines/disciplines.interface";
 import CustomText from "../Customs/CustomText";
 import { router } from "expo-router";
+import Animated from "react-native-reanimated";
 
 interface DisciplinesCardProps {
   discipline: Disciplines;

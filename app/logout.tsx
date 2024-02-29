@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { Redirect, router } from "expo-router";
 import { useAuthStore } from "../src/zustand/authStore";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import CustomText from "../src/components/Customs/CustomText";
 import { useEffect } from "react";
+import { COLORS } from "../src/Constants/Colors";
 
 const logout = async () => {
   useAuthStore.getState().logout();
@@ -25,11 +26,13 @@ export default function Page() {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#fff",
+        gap: 16,
       }}
     >
-      <CustomText style={{ fontFamily: "Montserrat-Regular" }}>
+      <CustomText style={{ fontFamily: "Montserrat-Regular", fontSize: 20 }}>
         Cerrando sesión
       </CustomText>
+      <ActivityIndicator size="large" color={COLORS.secondary} />
     </View>
   );
 }

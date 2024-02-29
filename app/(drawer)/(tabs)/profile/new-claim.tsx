@@ -1,4 +1,11 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React from "react";
 import CustomText from "../../../../src/components/Customs/CustomText";
 import { Controller, useForm } from "react-hook-form";
@@ -69,7 +76,7 @@ const newCLaim = (props: Props) => {
         type: "success",
         text1: "Reclamo enviado",
       });
-      router.replace("/profile/claims");
+      router.navigate("/profile/claims");
       form.reset();
     },
     onError: (error) => {
@@ -140,13 +147,18 @@ const newCLaim = (props: Props) => {
 
         <Pressable
           onPress={handleSubmit(submitForm)}
+          disabled={sendClaimMutation.isPending}
           style={({ pressed }) => [
-            { backgroundColor: pressed ? "#de8e02" : "#fab60a" },
             {
               padding: 16,
               paddingHorizontal: 32,
               borderRadius: 8,
               elevation: 1,
+              backgroundColor: sendClaimMutation.isPending
+                ? COLORS.disabledBg
+                : pressed
+                ? "#de8e02"
+                : "#fab60a",
 
               alignItems: "center",
               width: "auto",
@@ -154,11 +166,22 @@ const newCLaim = (props: Props) => {
             },
           ]}
         >
-          <CustomText
-            style={{ color: "#fff", textTransform: "uppercase", width: "auto" }}
-          >
-            Enviar
-          </CustomText>
+          {
+            // si esta en estado pendiente muestra el loader
+            sendClaimMutation.isPending ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <CustomText
+                style={{
+                  color: "#fff",
+                  textTransform: "uppercase",
+                  width: "auto",
+                }}
+              >
+                Enviar
+              </CustomText>
+            )
+          }
         </Pressable>
       </View>
     </View>

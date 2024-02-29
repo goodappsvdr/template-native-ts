@@ -59,6 +59,7 @@ const Diciplines = () => {
                 gap: 16,
                 paddingHorizontal: 16,
               }}
+              onScroll={(e) => console.log(e.nativeEvent.contentOffset.y)}
               refreshControl={
                 <RefreshControl
                   refreshing={getAllDisciplinesQuery.isRefetching}

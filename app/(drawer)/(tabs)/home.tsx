@@ -1,13 +1,26 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { ScrollView, View } from "react-native";
+import CarrouselCovers from "../../../src/components/Home/CarrouselCovers";
+import NewDisciplines from "../../../src/components/Home/NewDisciplines";
+import CarrouselLastNews from "../../../src/components/Home/CarrouselLastNews";
 
 console.log("homeeeee");
 
 const Home = () => {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <View style={{ flex: 1, paddingBottom: 96 }}>
+        {/* Nuevas disciplinas */}
+        <NewDisciplines />
+
+        {/* Carrousel portadas */}
+
+        <CarrouselCovers />
+
+        {/* carrousel ultimas noticias */}
+        <CarrouselLastNews />
+      </View>
+    </ScrollView>
   );
 };
 

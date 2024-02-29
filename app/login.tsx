@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   FlatList,
   KeyboardAvoidingView,
   Platform,
@@ -29,6 +30,7 @@ import * as SecureStore from "expo-secure-store";
 import CustomText from "../src/components/Customs/CustomText";
 import { SecureStoreSetItemAsync } from "../src/Services/SecureStorageHelpers";
 import CustomLoginFooter from "../src/components/Customs/CustomLoginFooter";
+import { COLORS } from "../src/Constants/Colors";
 
 interface IFormInput {
   email: string;
@@ -186,14 +188,27 @@ export default function Page() {
 
               <Pressable
                 onPress={handleSubmit(submitForm)}
-                style={({ pressed }) => [
-                  { backgroundColor: pressed ? "#de8e02" : "#fab60a" },
-                  styles.submitBtn,
-                ]}
+                disabled={loginMutation.isPending}
+                style={
+                  loginMutation.isPending
+                    ? styles.submitBtnDisabled
+                    : ({ pressed }) => [
+                        { backgroundColor: pressed ? "#de8e02" : "#fab60a" },
+
+                        styles.submitBtn,
+                      ]
+                }
               >
-                <CustomText style={[styles.submitBtnText]}>
-                  Continuar
-                </CustomText>
+                {
+                  // si esta en estado pendiente muestra el loader
+                  loginMutation.isPending ? (
+                    <ActivityIndicator color="#fff" />
+                  ) : (
+                    <CustomText style={[styles.submitBtnText]}>
+                      Continuar
+                    </CustomText>
+                  )
+                }
               </Pressable>
 
               <View
@@ -265,6 +280,13 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     // backgroundColor: "#242424",
+    height: 48,
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  submitBtnDisabled: {
+    backgroundColor: COLORS.disabledBg,
     height: 48,
     borderRadius: 12,
     justifyContent: "center",

@@ -2,6 +2,7 @@ import React from "react";
 import { Image, Text, View, useWindowDimensions } from "react-native";
 import { COLORS } from "../../Constants/Colors";
 import ShareButton from "../Customs/CustomSHareButton";
+import WavesBlanco from "../Icons/WavesCoverBlanco";
 const imgCover = require("../../../assets/WavesCoverFina.png");
 
 type Props = {
@@ -34,16 +35,17 @@ const NewsByIdCover = ({
           }}
         />
 
-        <Image
-          source={imgCover}
+        <View
           style={{
-            width: width,
-            height: width / 9,
-            resizeMode: "stretch",
             position: "absolute",
             bottom: 0,
+            height: 40,
+            zIndex: 20,
+            width: "100%",
           }}
-        />
+        >
+          <WavesBlanco width={width} height={width / 8} />
+        </View>
       </View>
       <View
         style={{

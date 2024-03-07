@@ -18,6 +18,7 @@ import { AxiosResponse } from "axios";
 import { ClientesGetAsyncResponse } from "../../src/interfaces/auth/auth.interface";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import GeneralLoader from "../../src/components/Skeletons/GeneralLoader";
+import { getAsyncResponse } from "../../src/interfaces/expoToken/expoToken.interface";
 
 interface IUserInfo extends JwtPayload {
   email: string;
@@ -58,7 +59,6 @@ const getUserInfo = async () => {
       return false;
     }
 
-    console.log(decodedToken.nameid);
     const response = await api.get(`/Clientes/GetAsync/${decodedToken.nameid}`);
 
     const data = response.data as ClientesGetAsyncResponse;
@@ -66,7 +66,39 @@ const getUserInfo = async () => {
     useAuthStore.getState().setUser(data.clients);
     useAuthStore.getState().setContracts(data.contracts);
 
-    return decodedToken;
+    const expoToken =
+      (await SecureStoreGetItemAsync("expoToken")) ||
+      useAuthStore.getState().expoToken;
+
+    console.log(expoToken, "expoToken");
+
+    const getExpoTokenStatus = await api.get<getAsyncResponse>(
+      "/TokenExpo/GetAsync/" + data.clients.idClient
+    );
+
+    console.log(getExpoTokenStatus.data, "getExpoTokenStatus");
+
+    if (
+      getExpoTokenStatus.data.result === false ||
+      getExpoTokenStatus.data.tokenExpo.token !== expoToken
+    ) {
+      const addExpoToken = await api.post<getAsyncResponse>(
+        "/TokenExpo/AddAsync",
+        {
+          idCliente: data.clients.idClient,
+          token: expoToken,
+        }
+      );
+      return addExpoToken.data;
+    } else if (getExpoTokenStatus.data.tokenExpo.active !== null) {
+      useAuthStore
+        .getState()
+        .setNotificacions(getExpoTokenStatus.data.tokenExpo.active);
+    }
+
+    // Guardar el expo token con el userId
+
+    return getExpoTokenStatus.data;
   } catch (error) {
     console.log(error);
     return false;

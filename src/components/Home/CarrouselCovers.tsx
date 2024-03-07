@@ -82,6 +82,7 @@ const CarrouselCovers = (props: Props) => {
               return (
                 <TouchableWithoutFeedback
                   onPress={() => redirect(banner.urlImagen)}
+                  key={banner.id}
                 >
                   <View>
                     <Image

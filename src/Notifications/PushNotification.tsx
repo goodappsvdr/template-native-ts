@@ -3,6 +3,9 @@ import { View, Text, Button, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
+import { useAuthStore } from "../zustand/authStore";
+import * as SecureStore from "expo-secure-store";
+import GeneralLoader from "../components/Skeletons/GeneralLoader";
 
 type Props = {
   children: React.ReactNode;
@@ -49,7 +52,12 @@ async function registerForPushNotificationsAsync(): Promise<
         projectId: Constants.expoConfig?.extra!.eas.projectId,
       })
     ).data;
-    console.log(token);
+
+    useAuthStore.getState().setExpoToken(token);
+
+    await SecureStore.setItemAsync("expoToken", token);
+
+    return token;
   } else {
     alert("Must use physical device for Push Notifications");
   }

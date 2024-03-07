@@ -86,7 +86,7 @@ const CarrouselLastNews = (props: Props) => {
           >
             {getAllNewsQuery.data.map((news) => {
               return (
-                <View>
+                <View key={news.idNoticia}>
                   <NewsListCard news={news} />
                 </View>
               );

@@ -5,9 +5,14 @@ import { Clients, Contract } from "../interfaces/auth/auth.interface";
 interface IAuthStore {
   user: Clients | null;
   accessToken: string | null;
+  expoToken: string | null;
   isAuth: boolean;
+  notifications: boolean;
   contracts: Contract[] | [];
+
   setAccessToken: (token: string) => void;
+  setNotificacions: (notifications: boolean) => void;
+  setExpoToken: (token: string) => void;
   setUser: (user: any) => void;
   setContracts: (contracts: Contract[]) => void;
   logout: () => void;
@@ -16,12 +21,19 @@ interface IAuthStore {
 export const useAuthStore = create<IAuthStore>((set) => ({
   user: null,
   accessToken: null,
+  expoToken: null,
   isAuth: false,
+  notifications: false,
   contracts: [],
 
   setAccessToken: (token) => {
     set({ accessToken: token, isAuth: true });
-    console.log("cambie el token");
+  },
+  setNotificacions: (notifications) => {
+    set({ notifications: notifications });
+  },
+  setExpoToken: async (token) => {
+    set({ expoToken: token });
   },
 
   setUser: (user) => {

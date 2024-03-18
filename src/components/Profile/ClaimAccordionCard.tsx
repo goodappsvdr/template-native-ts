@@ -35,7 +35,9 @@ const ClaimAccordionCard = ({ title, content }: Props) => {
     <View
       style={{
         elevation: 1,
-
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 1,
         backgroundColor: "#fff",
         padding: 16,
       }}

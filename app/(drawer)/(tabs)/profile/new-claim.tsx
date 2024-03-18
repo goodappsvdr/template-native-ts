@@ -121,6 +121,9 @@ const newCLaim = (props: Props) => {
                 style={{
                   backgroundColor: "#fff",
                   elevation: 1,
+                  shadowOffset: { width: 0, height: 1 },
+                  shadowOpacity: 0.1,
+                  shadowRadius: 1,
                   padding: 8,
                   minHeight: 200,
                 }}
@@ -154,6 +157,9 @@ const newCLaim = (props: Props) => {
               paddingHorizontal: 32,
               borderRadius: 8,
               elevation: 1,
+              shadowOffset: { width: 0, height: 1 },
+              shadowOpacity: 0.1,
+              shadowRadius: 1,
               backgroundColor: sendClaimMutation.isPending
                 ? COLORS.disabledBg
                 : pressed

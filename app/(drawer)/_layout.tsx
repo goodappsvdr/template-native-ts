@@ -82,6 +82,7 @@ const getUserInfo = async () => {
       getExpoTokenStatus.data.result === false ||
       getExpoTokenStatus.data.tokenExpo.token !== expoToken
     ) {
+      console.log("caso1");
       const addExpoToken = await api.post<getAsyncResponse>(
         "/TokenExpo/AddAsync",
         {
@@ -89,11 +90,16 @@ const getUserInfo = async () => {
           token: expoToken,
         }
       );
+
+      console.log({ addExpoToken: addExpoToken.data });
+      useAuthStore.getState().setNotificacions(addExpoToken.data.tokenExpo);
+
       return addExpoToken.data;
     } else if (getExpoTokenStatus.data.tokenExpo.active !== null) {
+      console.log("caso2");
       useAuthStore
         .getState()
-        .setNotificacions(getExpoTokenStatus.data.tokenExpo.active);
+        .setNotificacions(getExpoTokenStatus.data.tokenExpo);
     }
 
     // Guardar el expo token con el userId

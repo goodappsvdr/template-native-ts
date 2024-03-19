@@ -13,6 +13,7 @@ import { COLORS } from "../../Constants/Colors";
 import Carousel from "pinar";
 import NewsListCard from "../News/NewsListCard";
 import CustomText from "../Customs/CustomText";
+import CarrouselLastNewsSkeleton from "../Skeletons/CarrouselLastNewsSkeleton";
 
 type Props = {};
 
@@ -32,9 +33,7 @@ const CarrouselLastNews = (props: Props) => {
   return (
     <>
       {getAllNewsQuery.isLoading ? (
-        <View>
-          <Text>Loading...</Text>
-        </View>
+        <CarrouselLastNewsSkeleton />
       ) : getAllNewsQuery.data ? (
         <View style={{ paddingHorizontal: 16, paddingBottom: 32 }}>
           <View style={{ paddingTop: 32, paddingBottom: 16 }}>

@@ -29,8 +29,6 @@ const sendClaim = async (data: IFormInput) => {
   const date = new Date();
   data.fecha = date.toISOString();
 
-  console.log(data.fecha);
-
   const response = await api.post("/Reclamos/SaveOrUpdate", data);
   return response.data;
 };
@@ -58,7 +56,6 @@ const newCLaim = (props: Props) => {
   });
 
   const submitForm = () => {
-    console.log(form.getValues());
     sendClaimMutation.mutate(form.getValues());
   };
 

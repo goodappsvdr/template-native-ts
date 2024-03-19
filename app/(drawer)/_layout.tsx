@@ -42,7 +42,6 @@ const getUserInfo = async () => {
     }
 
     if (!token) {
-      console.log("no existe token");
       useAuthStore.getState().logout();
       return false;
     }
@@ -52,12 +51,13 @@ const getUserInfo = async () => {
     const date = new Date();
 
     if (decodedToken.exp!! < date.getTime() / 1000) {
-      console.log("expiro token");
       useAuthStore.getState().logout();
 
       await SecureStoreSetItemAsync("token", "");
       return false;
     }
+
+    if (!tokenZustand) useAuthStore.getState().setAccessToken(token);
 
     const response = await api.get(`/Clientes/GetAsync/${decodedToken.nameid}`);
 
@@ -70,19 +70,14 @@ const getUserInfo = async () => {
       (await SecureStoreGetItemAsync("expoToken")) ||
       useAuthStore.getState().expoToken;
 
-    console.log(expoToken, "expoToken");
-
     const getExpoTokenStatus = await api.get<getAsyncResponse>(
       "/TokenExpo/GetAsync/" + data.clients.idClient
     );
-
-    console.log(getExpoTokenStatus.data, "getExpoTokenStatus");
 
     if (
       getExpoTokenStatus.data.result === false ||
       getExpoTokenStatus.data.tokenExpo.token !== expoToken
     ) {
-      console.log("caso1");
       const addExpoToken = await api.post<getAsyncResponse>(
         "/TokenExpo/AddAsync",
         {
@@ -91,12 +86,10 @@ const getUserInfo = async () => {
         }
       );
 
-      console.log({ addExpoToken: addExpoToken.data });
       useAuthStore.getState().setNotificacions(addExpoToken.data.tokenExpo);
 
       return addExpoToken.data;
     } else if (getExpoTokenStatus.data.tokenExpo.active !== null) {
-      console.log("caso2");
       useAuthStore
         .getState()
         .setNotificacions(getExpoTokenStatus.data.tokenExpo);

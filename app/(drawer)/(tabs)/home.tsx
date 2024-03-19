@@ -4,8 +4,6 @@ import CarrouselCovers from "../../../src/components/Home/CarrouselCovers";
 import NewDisciplines from "../../../src/components/Home/NewDisciplines";
 import CarrouselLastNews from "../../../src/components/Home/CarrouselLastNews";
 
-console.log("homeeeee");
-
 const Home = () => {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>

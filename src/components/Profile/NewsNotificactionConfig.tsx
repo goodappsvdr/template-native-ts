@@ -9,7 +9,6 @@ import { getAsyncResponse } from "../../interfaces/expoToken/expoToken.interface
 import { router } from "expo-router";
 
 const updateNotifications = async (body: any) => {
-  console.log(body);
   const response = await api.put<getAsyncResponse>(
     "/TokenExpo/UpdateAsync",
     body
@@ -22,8 +21,6 @@ type Props = {};
 const NewsNotificactionConfig = (props: Props) => {
   const { notifications, user, setNotificacions } = useAuthStore();
 
-  console.log(notifications);
-
   const changeNotifications = useMutation({
     mutationFn: updateNotifications,
     onSuccess: (data) => {
@@ -35,8 +32,6 @@ const NewsNotificactionConfig = (props: Props) => {
       if (status === 401) {
         return router.push("logout");
       }
-
-      console.log(error);
 
       // router.push("logout");
     },

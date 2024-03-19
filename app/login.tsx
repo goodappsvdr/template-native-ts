@@ -51,8 +51,6 @@ const loginUser = async (data: IFormInput) => {
 
   const response = await api.post("/AuthNew/Login", formData);
 
-  console.log(response.status);
-
   return response.data;
 };
 
@@ -65,8 +63,8 @@ export default function Page() {
 
   const form = useForm({
     defaultValues: {
-      email: "anaclara2786@gmail.com",
-      dni: "18172886",
+      email: "",
+      dni: "",
     },
     resolver: zodResolver(loginSchema),
   });
@@ -76,14 +74,12 @@ export default function Page() {
   };
 
   const submitForm = () => {
-    console.log(form.getValues());
     loginMutation.mutate(form.getValues());
   };
 
   const loginMutation = useMutation({
     mutationFn: loginUser,
     onSuccess: async (data) => {
-      console.log(data);
       setAccessToken(data.token);
       await SecureStoreSetItemAsync("token", data.token);
       router.push("/home");

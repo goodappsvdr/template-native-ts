@@ -14,7 +14,7 @@ const RoomsCard = ({ room }: RoomsCardProps) => {
   };
   return (
     <TouchableOpacity
-      activeOpacity={0.7}
+      activeOpacity={0.95}
       style={{
         display: "flex",
         justifyContent: "center",

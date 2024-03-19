@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import Carousel from "pinar";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { COLORS } from "../../Constants/Colors";
+import CarrouselCoversSkeleton from "../Skeletons/CarrouselCoversSkeleton";
 
 type Props = {};
 
@@ -38,9 +39,7 @@ const CarrouselCovers = (props: Props) => {
   return (
     <>
       {getBannersQuery.isLoading ? (
-        <View>
-          <Text>Loading...</Text>
-        </View>
+        <CarrouselCoversSkeleton />
       ) : getBannersQuery.data ? (
         <View style={{ paddingBottom: 32 }}>
           <Carousel

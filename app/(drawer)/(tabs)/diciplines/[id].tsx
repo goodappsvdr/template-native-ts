@@ -1,7 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
-import { ScrollView, Text, View, useWindowDimensions } from "react-native";
+import {
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { api } from "../../../../src/api/api";
 import { DisciplineByIdResponse } from "../../../../src/interfaces/disciplines/disciplines.interface";
 import RenderHTML, { HTMLSource } from "react-native-render-html";
@@ -26,7 +32,6 @@ const getDiciplineById = async ({
   const id = queryKey[1];
   const response = await api.get(`/DisciplinaHome/GetAsync/${id}`);
 
-  console.log({ response: response.data });
   return response.data;
 };
 
@@ -45,7 +50,15 @@ const DiciplinesByID = () => {
   });
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
+    <ScrollView
+      style={{ flex: 1, backgroundColor: "#fff" }}
+      refreshControl={
+        <RefreshControl
+          refreshing={getDiciplineByIdQuery.isRefetching}
+          onRefresh={() => getDiciplineByIdQuery.refetch()}
+        />
+      }
+    >
       {getDiciplineByIdQuery.isPending ? (
         <ProfileSkeleton />
       ) : (

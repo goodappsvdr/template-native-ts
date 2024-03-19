@@ -84,15 +84,7 @@ const NewsById = () => {
     getNewsVideoAndImageQuery.refetch();
   };
   return (
-    <ScrollView
-      style={{ flex: 1, backgroundColor: "#fff" }}
-      refreshControl={
-        <RefreshControl
-          refreshing={getNewsByIdQuery.isRefetching}
-          onRefresh={() => refresh()}
-        />
-      }
-    >
+    <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
       {getNewsByIdQuery.isError ? (
         <Text>Error al cargar la noticia</Text>
       ) : getNewsByIdQuery.isFetching ? (

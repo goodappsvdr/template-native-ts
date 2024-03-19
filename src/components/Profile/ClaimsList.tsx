@@ -48,7 +48,7 @@ const ClaimsList = ({ withTitle = true, data }: Props) => {
         )}
 
         <TouchableOpacity
-          activeOpacity={0.7}
+          activeOpacity={0.95}
           onPress={redirectClaim}
           style={{ marginLeft: "auto" }}
         >

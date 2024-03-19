@@ -55,8 +55,6 @@ const RoomsById = () => {
     queryFn: getRoomEmployees,
   });
 
-  console.log(getRoomEmployeesQuery.data);
-
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: "#fff" }}

@@ -20,7 +20,7 @@ const NewsListCard = ({ news }: Props) => {
   };
   return (
     <TouchableOpacity
-      activeOpacity={0.9}
+      activeOpacity={0.95}
       style={{ position: "relative" }}
       onPress={redirect}
     >

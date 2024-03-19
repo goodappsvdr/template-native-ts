@@ -57,7 +57,6 @@ const Profile = () => {
     : { uri: user?.image };
 
   const refresh = () => {
-    console.log("refreshing");
     getClaimsQuery.refetch();
   };
 
@@ -123,7 +122,7 @@ const Profile = () => {
                 color: COLORS.secondary,
               }}
             >
-              22.080.743
+              {user!.dni}
             </CustomText>
           </View>
           <View style={{ paddingHorizontal: 16 }}>

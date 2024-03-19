@@ -16,9 +16,8 @@ const FooterBackgroundDrawer = ({ bottom }: { bottom: number }) => {
         flex: 1,
         position: "relative",
         bottom: 0,
-        margin: "auto",
+
         alignItems: "baseline",
-        backgroundColor: "#ff000",
 
         overflow: "hidden",
       }}

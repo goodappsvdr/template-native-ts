@@ -48,6 +48,5 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   logout: async () => {
     set({ user: null, accessToken: null, isAuth: false });
     await SecureStore.deleteItemAsync("token");
-    console.log("logout");
   },
 }));

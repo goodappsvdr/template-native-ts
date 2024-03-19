@@ -10,6 +10,7 @@ export interface Clients {
   name: string;
   birthDate: string;
   mobile: string;
+  dni: string;
   email: string;
   image: string;
   state: any;

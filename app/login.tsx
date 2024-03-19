@@ -63,8 +63,8 @@ export default function Page() {
 
   const form = useForm({
     defaultValues: {
-      email: "",
-      dni: "",
+      email: "anaclara2786@gmail.com",
+      dni: "18172886",
     },
     resolver: zodResolver(loginSchema),
   });
@@ -90,6 +90,16 @@ export default function Page() {
   });
   const { register, handleSubmit, control } = form;
 
+  function generateWhatsappText(texto: string) {
+    var numeroTelefono = "5493543540516"; // Coloca aquí el número de teléfono
+    var textoCodificado = encodeURIComponent(texto); // Codifica el texto usando encodeURIComponent
+    var enlace =
+      "https://api.whatsapp.com/send/?phone=" +
+      numeroTelefono +
+      "&text=" +
+      textoCodificado;
+    return enlace;
+  }
   return (
     <KeyboardAvoidingView
       style={{
@@ -178,8 +188,15 @@ export default function Page() {
                 name="dni"
               />
 
-              <Link href={"/forgetuser"} style={styles.forgetLink}>
-                <CustomText>Olvidé mi usuario</CustomText>
+              <Link
+                href={generateWhatsappText(
+                  "Hola! Olvidé mi usuario y contraseña para ingresar a la app Eos…"
+                )}
+                style={styles.forgetLink}
+              >
+                <CustomText style={{ textTransform: "uppercase" }}>
+                  Olvidé mi usuario
+                </CustomText>
               </Link>
 
               <Pressable
@@ -209,18 +226,27 @@ export default function Page() {
 
               <View
                 style={{
-                  marginTop: 32,
+                  marginTop: 0,
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
                   flex: 1,
                 }}
               >
-                <CustomText>
+                <CustomText
+                  style={{
+                    textAlign: "center",
+                    fontSize: 12,
+                  }}
+                >
                   ¿Aún no sos usuario de Eos Distrito Deportivo?
                 </CustomText>
 
-                <Link href="/register">
+                <Link
+                  href={generateWhatsappText(
+                    "Hola! Quiero ser socio de EOS CLUB…"
+                  )}
+                >
                   <CustomText style={{ textTransform: "uppercase" }}>
                     Registrate aquí
                   </CustomText>

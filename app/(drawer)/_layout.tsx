@@ -76,7 +76,8 @@ const getUserInfo = async () => {
 
     if (
       getExpoTokenStatus.data.result === false ||
-      getExpoTokenStatus.data.tokenExpo.token !== expoToken
+      getExpoTokenStatus.data.tokenExpo.token !== expoToken ||
+      getExpoTokenStatus.data.tokenExpo.active === null
     ) {
       const addExpoToken = await api.post<getAsyncResponse>(
         "/TokenExpo/AddAsync",

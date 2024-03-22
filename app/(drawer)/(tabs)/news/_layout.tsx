@@ -8,7 +8,7 @@ const NewsLayout = () => {
     <>
       <Stack
         screenOptions={{
-          gestureEnabled: false,
+          gestureEnabled: true,
           header: () => {
             return <CustomHeader goBackEnabled={true} />;
           },

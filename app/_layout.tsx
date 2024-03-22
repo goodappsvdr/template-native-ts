@@ -39,7 +39,7 @@ const RootLayout = () => {
           <Stack
             initialRouteName="home"
             screenOptions={{
-              gestureEnabled: false,
+              gestureEnabled: true,
             }}
           >
             <Stack.Screen

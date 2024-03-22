@@ -50,7 +50,7 @@ const NewDisciplines = (props: Props) => {
                 <TouchableOpacity
                   activeOpacity={0.95}
                   onPress={() =>
-                    router.navigate(`/diciplines/${discipline.idDisciplina}`)
+                    router.push(`/diciplines/${discipline.idDisciplina}`)
                   }
                 >
                   <Image

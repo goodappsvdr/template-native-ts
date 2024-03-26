@@ -19,6 +19,7 @@ import { ClientesGetAsyncResponse } from "../../src/interfaces/auth/auth.interfa
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import GeneralLoader from "../../src/components/Skeletons/GeneralLoader";
 import { getAsyncResponse } from "../../src/interfaces/expoToken/expoToken.interface";
+import CustomHeader from "../../src/components/Customs/CustomHeader";
 
 interface IUserInfo extends JwtPayload {
   email: string;
@@ -126,6 +127,10 @@ const DrawerMenu = () => {
       drawerContent={CustomDrawerContent}
       screenOptions={{
         headerShown: false,
+        // header: () => {
+        //   return <CustomHeader goBackEnabled={true} />;
+        // },
+
         drawerStyle: {
           width: 320,
           flex: 1,

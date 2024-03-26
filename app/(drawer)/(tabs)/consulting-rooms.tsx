@@ -1,23 +1,12 @@
-import { Link } from "expo-router";
-import React from "react";
-import {
-  FlatList,
-  Pressable,
-  RefreshControl,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
-import { COLORS } from "../../../../src/Constants/Colors";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { api } from "../../../../src/api/api";
-import { GetAllDisciplinesResponse } from "../../../../src/interfaces/disciplines/disciplines.interface";
-import DisciplinesCard from "../../../../src/components/Disciplines/DisciplinesCard";
-import CustomText from "../../../../src/components/Customs/CustomText";
-import { GetAllRoomsResponse } from "../../../../src/interfaces/consulting/consulting.interface";
-import RoomsCard from "../../../../src/components/Consulting-rooms/RoomsCard";
-import { useAuthStore } from "../../../../src/zustand/authStore";
-import TwoColumnListSkeleton from "../../../../src/components/Skeletons/TwoColumnListSkeleton";
+import { useQuery } from "@tanstack/react-query";
+import { View, FlatList, RefreshControl, Text } from "react-native";
+import { COLORS } from "../../../src/Constants/Colors";
+import { api } from "../../../src/api/api";
+import RoomsCard from "../../../src/components/Consulting-rooms/RoomsCard";
+import CustomText from "../../../src/components/Customs/CustomText";
+import TwoColumnListSkeleton from "../../../src/components/Skeletons/TwoColumnListSkeleton";
+import { GetAllRoomsResponse } from "../../../src/interfaces/consulting/consulting.interface";
+import { useAuthStore } from "../../../src/zustand/authStore";
 
 const getAllConsultingRooms = async (): Promise<GetAllRoomsResponse> => {
   try {

@@ -9,9 +9,13 @@ import LogoBlancoAmarillo from "../Icons/LogoBlancoAmarillo";
 
 interface CustomHeaderProps {
   goBackEnabled: boolean;
+  drawerEnabled?: boolean;
 }
 
-const CustomHeader = ({ goBackEnabled }: CustomHeaderProps) => {
+const CustomHeader = ({
+  goBackEnabled,
+  drawerEnabled = true,
+}: CustomHeaderProps) => {
   const navigation = useNavigation() as DrawerNavigationProp<{}>;
 
   const currentRoute = navigation.getState();
@@ -32,7 +36,7 @@ const CustomHeader = ({ goBackEnabled }: CustomHeaderProps) => {
       {/* left */}
 
       <View>
-        {goBackEnabled && canGoBack && (
+        {goBackEnabled && (
           <Pressable
             onPress={() => {
               navigation.goBack();
@@ -68,20 +72,22 @@ const CustomHeader = ({ goBackEnabled }: CustomHeaderProps) => {
       </View>
 
       {/* right */}
-      <View>
-        <Pressable
-          onPress={() => {
-            navigation.openDrawer();
-          }}
-        >
-          <MenuIcon
-            fill={"#ffffff"}
-            height={24}
-            width={24}
-            style={{ marginRight: 16 }}
-          />
-        </Pressable>
-      </View>
+      {drawerEnabled && (
+        <View>
+          <Pressable
+            onPress={() => {
+              navigation.openDrawer();
+            }}
+          >
+            <MenuIcon
+              fill={"#ffffff"}
+              height={24}
+              width={24}
+              style={{ marginRight: 16 }}
+            />
+          </Pressable>
+        </View>
+      )}
     </View>
   );
 };

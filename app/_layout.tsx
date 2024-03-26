@@ -11,6 +11,7 @@ import * as Notifications from "expo-notifications";
 import PushNotificationLayout from "../src/Notifications/PushNotification";
 import Toast from "react-native-toast-message";
 import { toastConfig } from "../src/ToastConfig/ToastConfig";
+import CustomHeader from "../src/components/Customs/CustomHeader";
 
 AxiosInterceptor();
 
@@ -40,6 +41,11 @@ const RootLayout = () => {
             initialRouteName="home"
             screenOptions={{
               gestureEnabled: true,
+              header: () => {
+                return (
+                  <CustomHeader goBackEnabled={true} drawerEnabled={false} />
+                );
+              },
             }}
           >
             <Stack.Screen
@@ -66,6 +72,10 @@ const RootLayout = () => {
                 headerShown: false,
               }}
             />
+            <Stack.Screen name="profile-stack" />
+            <Stack.Screen name="disciplines-stack" />
+            <Stack.Screen name="news-stack" />
+            <Stack.Screen name="consulting-rooms-stack" />
           </Stack>
         </View>
         <Toast config={toastConfig} />

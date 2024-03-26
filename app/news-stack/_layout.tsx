@@ -1,6 +1,5 @@
-import { Stack, useNavigation } from "expo-router";
-import CustomHeader from "../../../../src/components/Customs/CustomHeader";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
+import { useNavigation, Stack } from "expo-router";
 
 const NewsLayout = () => {
   const navigation = useNavigation() as DrawerNavigationProp<{}>;
@@ -9,12 +8,9 @@ const NewsLayout = () => {
       <Stack
         screenOptions={{
           gestureEnabled: true,
-          header: () => {
-            return <CustomHeader goBackEnabled={true} />;
-          },
+          headerShown: false,
         }}
       >
-        <Stack.Screen name="index" />
         <Stack.Screen name="[id]" />
       </Stack>
     </>

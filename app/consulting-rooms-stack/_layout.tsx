@@ -1,24 +1,21 @@
 import { Stack, useNavigation } from "expo-router";
-import CustomHeader from "../../../../src/components/Customs/CustomHeader";
+import CustomHeader from "../../src/components/Customs/CustomHeader";
 import { DrawerNavigationProp } from "@react-navigation/drawer";
 
-const DiciplinesLayout = () => {
+const ConsultingLayout = () => {
   const navigation = useNavigation() as DrawerNavigationProp<{}>;
   return (
     <>
       <Stack
         screenOptions={{
           gestureEnabled: true,
-          header: () => {
-            return <CustomHeader goBackEnabled={true} />;
-          },
+          headerShown: false,
         }}
       >
-        <Stack.Screen name="index" />
         <Stack.Screen name="[id]" />
       </Stack>
     </>
   );
 };
 
-export default DiciplinesLayout;
+export default ConsultingLayout;

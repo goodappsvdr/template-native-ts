@@ -1,18 +1,11 @@
-import {
-  RefreshControl,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import React from "react";
-import { api } from "../../../../src/api/api";
 import { useQuery } from "@tanstack/react-query";
-import { NewsList } from "../../../../src/interfaces/news/news.interface";
-import CustomText from "../../../../src/components/Customs/CustomText";
-import NewsListCard from "../../../../src/components/News/NewsListCard";
-import { COLORS } from "../../../../src/Constants/Colors";
-import NewsListSkeleton from "../../../../src/components/Skeletons/NewsListSkeleton";
+import { ScrollView, RefreshControl, View, StyleSheet } from "react-native";
+import { COLORS } from "../../../src/Constants/Colors";
+import { api } from "../../../src/api/api";
+import CustomText from "../../../src/components/Customs/CustomText";
+import NewsListCard from "../../../src/components/News/NewsListCard";
+import NewsListSkeleton from "../../../src/components/Skeletons/NewsListSkeleton";
+import { NewsList } from "../../../src/interfaces/news/news.interface";
 
 const getAllNews = async (): Promise<NewsList> => {
   const response = await api.get("Noticias/GetFront");

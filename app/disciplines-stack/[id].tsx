@@ -1,28 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router";
-import React from "react";
 import {
-  RefreshControl,
-  ScrollView,
-  Text,
-  View,
   useWindowDimensions,
+  ScrollView,
+  RefreshControl,
+  View,
 } from "react-native";
-import { api } from "../../../../src/api/api";
-import { DisciplineByIdResponse } from "../../../../src/interfaces/disciplines/disciplines.interface";
-import RenderHTML, { HTMLSource } from "react-native-render-html";
-import CustomCover from "../../../../src/components/Customs/CustomCover";
-import CustomYoutubePlayer from "../../../../src/components/Customs/CustomYoutubePlayer";
-import CustomRenderHtml from "../../../../src/components/Customs/CustomRenderHtml";
-import CustomAccordion from "../../../../src/components/Customs/CustomAccordion";
-import CustomText from "../../../../src/components/Customs/CustomText";
-import { COLORS } from "../../../../src/Constants/Colors";
-import CustomSheduleGrid from "../../../../src/components/Customs/CustomSheduleGrid";
-import CustomInvestmentGrid from "../../../../src/components/Customs/CustomInvestmentGrid";
-import CustomTeacherList from "../../../../src/components/Customs/CustomTeacherList";
-import CustomPaymentMehods from "../../../../src/components/Customs/CustomPaymentMehods";
-import Animated, { FadeIn, FadeInUp } from "react-native-reanimated";
-import ProfileSkeleton from "../../../../src/components/Skeletons/ProfileSkeleton";
+import { COLORS } from "../../src/Constants/Colors";
+import { api } from "../../src/api/api";
+import CustomAccordion from "../../src/components/Customs/CustomAccordion";
+import CustomCover from "../../src/components/Customs/CustomCover";
+import CustomInvestmentGrid from "../../src/components/Customs/CustomInvestmentGrid";
+import CustomPaymentMehods from "../../src/components/Customs/CustomPaymentMehods";
+import CustomRenderHtml from "../../src/components/Customs/CustomRenderHtml";
+import CustomSheduleGrid from "../../src/components/Customs/CustomSheduleGrid";
+import CustomTeacherList from "../../src/components/Customs/CustomTeacherList";
+import CustomText from "../../src/components/Customs/CustomText";
+import CustomYoutubePlayer from "../../src/components/Customs/CustomYoutubePlayer";
+import ProfileSkeleton from "../../src/components/Skeletons/ProfileSkeleton";
+import { DisciplineByIdResponse } from "../../src/interfaces/disciplines/disciplines.interface";
 
 const getDiciplineById = async ({
   queryKey,

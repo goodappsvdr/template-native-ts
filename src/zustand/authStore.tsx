@@ -2,6 +2,7 @@ import { create } from "zustand";
 import * as SecureStore from "expo-secure-store";
 import { Clients, Contract } from "../interfaces/auth/auth.interface";
 import { TokenExpo } from "../interfaces/expoToken/expoToken.interface";
+import { err } from "react-native-svg";
 
 interface IAuthStore {
   user: Clients | null;
@@ -46,7 +47,11 @@ export const useAuthStore = create<IAuthStore>((set) => ({
   },
 
   logout: async () => {
-    set({ user: null, accessToken: null, isAuth: false });
-    await SecureStore.deleteItemAsync("token");
+    try {
+      set({ user: null, accessToken: null, isAuth: false });
+      await SecureStore.deleteItemAsync("token");
+    } catch (error) {
+      console.log(error);
+    }
   },
 }));

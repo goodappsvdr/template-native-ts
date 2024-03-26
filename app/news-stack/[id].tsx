@@ -1,28 +1,24 @@
+import { useQuery } from "@tanstack/react-query";
+import { useLocalSearchParams } from "expo-router";
 import {
-  RefreshControl,
-  StyleSheet,
-  Text,
-  View,
   useWindowDimensions,
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
 } from "react-native";
-import React from "react";
-import { api } from "../../../../src/api/api";
+import { api } from "../../src/api/api";
+import CustomRenderHtml from "../../src/components/Customs/CustomRenderHtml";
+import CustomYoutubePlayer from "../../src/components/Customs/CustomYoutubePlayer";
+import NewsBottomImages from "../../src/components/News/NewsBottomImages";
+import NewsByIdCover from "../../src/components/News/NewsByIdCover";
+import NewsTopImages from "../../src/components/News/NewsTopImages";
+import ProfileSkeleton from "../../src/components/Skeletons/ProfileSkeleton";
 import {
-  News,
-  NewsImageList,
   NewsList,
   NewsVideoAndImage,
-} from "../../../../src/interfaces/news/news.interface";
-import { useLocalSearchParams } from "expo-router";
-import { useQuery } from "@tanstack/react-query";
-import { ScrollView } from "react-native-gesture-handler";
-import NewsByIdCover from "../../../../src/components/News/NewsByIdCover";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
-import CustomYoutubePlayer from "../../../../src/components/Customs/CustomYoutubePlayer";
-import CustomRenderHtml from "../../../../src/components/Customs/CustomRenderHtml";
-import NewsTopImages from "../../../../src/components/News/NewsTopImages";
-import NewsBottomImages from "../../../../src/components/News/NewsBottomImages";
-import ProfileSkeleton from "../../../../src/components/Skeletons/ProfileSkeleton";
+  NewsImageList,
+} from "../../src/interfaces/news/news.interface";
 
 const getNewsById = async ({
   queryKey,

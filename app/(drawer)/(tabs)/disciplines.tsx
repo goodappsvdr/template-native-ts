@@ -8,14 +8,14 @@ import {
   Text,
   View,
 } from "react-native";
-import { COLORS } from "../../../../src/Constants/Colors";
+import { COLORS } from "../../../src/Constants/Colors";
 import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
-import { api } from "../../../../src/api/api";
-import { GetAllDisciplinesResponse } from "../../../../src/interfaces/disciplines/disciplines.interface";
-import DisciplinesCard from "../../../../src/components/Disciplines/DisciplinesCard";
-import CustomText from "../../../../src/components/Customs/CustomText";
-import { useAuthStore } from "../../../../src/zustand/authStore";
-import TwoColumnListSkeleton from "../../../../src/components/Skeletons/TwoColumnListSkeleton";
+import { api } from "../../../src/api/api";
+import { GetAllDisciplinesResponse } from "../../../src/interfaces/disciplines/disciplines.interface";
+import DisciplinesCard from "../../../src/components/Disciplines/DisciplinesCard";
+import CustomText from "../../../src/components/Customs/CustomText";
+import { useAuthStore } from "../../../src/zustand/authStore";
+import TwoColumnListSkeleton from "../../../src/components/Skeletons/TwoColumnListSkeleton";
 
 const getAllDiciplines = async (): Promise<GetAllDisciplinesResponse> => {
   try {

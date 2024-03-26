@@ -16,7 +16,7 @@ const NewsListCard = ({ news }: Props) => {
   const redirect = () => {
     // Redirect to news detail
 
-    router.navigate(`/news/${news.idNoticia}`);
+    router.navigate(`/news-stack/${news.idNoticia}`);
   };
   return (
     <TouchableOpacity

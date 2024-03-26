@@ -50,7 +50,12 @@ const NewDisciplines = (props: Props) => {
                 <TouchableOpacity
                   activeOpacity={0.95}
                   onPress={() =>
-                    router.push(`/diciplines/${discipline.idDisciplina}`)
+                    router.navigate(
+                      {
+                        pathname: `/disciplines-stack/${discipline.idDisciplina}`,
+                      }
+                      // `/diciplines/${discipline.idDisciplina}`
+                    )
                   }
                 >
                   <Image

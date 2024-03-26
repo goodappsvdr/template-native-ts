@@ -11,7 +11,7 @@ interface DisciplinesCardProps {
 
 const DisciplinesCard = ({ discipline }: DisciplinesCardProps) => {
   const redirect = () => {
-    router.navigate(`/diciplines/${discipline.idDiscipline}`);
+    router.navigate(`/disciplines-stack/${discipline.idDiscipline}`);
   };
 
   return (

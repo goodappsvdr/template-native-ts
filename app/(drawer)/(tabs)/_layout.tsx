@@ -1,5 +1,5 @@
 import { DrawerNavigationProp } from "@react-navigation/drawer";
-import { Stack, Tabs, useNavigation } from "expo-router";
+import { Stack, Tabs, router, useNavigation, usePathname } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { Pressable, Text, View } from "react-native";
 import HomeIcon from "../../../src/components/Icons/HomeIcon";
@@ -15,6 +15,8 @@ import CustomHeader from "../../../src/components/Customs/CustomHeader";
 
 const MainLayout = () => {
   const navigation = useNavigation() as DrawerNavigationProp<{}>;
+
+  const pathname = usePathname();
 
   return (
     <>
@@ -44,6 +46,7 @@ const MainLayout = () => {
             fontSize: 7,
             marginTop: "auto",
           },
+          unmountOnBlur: true,
           header: () => {
             return <CustomHeader goBackEnabled={false} />;
           },
@@ -64,10 +67,10 @@ const MainLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="diciplines"
+          name="disciplines"
           options={{
             title: "Diciplinas",
-            headerShown: false,
+            // headerShown: false,
             tabBarIcon: ({ focused }) => (
               <DiciplinesIcon
                 fill={focused ? COLORS.primary : COLORS.secondary}
@@ -75,13 +78,14 @@ const MainLayout = () => {
                 width={32}
               />
             ),
+            unmountOnBlur: true,
           }}
         />
         <Tabs.Screen
           name="consulting-rooms"
           options={{
             title: "Consultorios",
-            headerShown: false,
+            // headerShown: false,
             tabBarIcon: ({ focused }) => (
               <ConsultingRoomsIcon
                 fill={focused ? COLORS.primary : COLORS.secondary}
@@ -95,7 +99,7 @@ const MainLayout = () => {
           name="news"
           options={{
             title: "Noticias",
-            headerShown: false,
+            // headerShown: false,
             tabBarIcon: ({ focused }) => (
               <NewsIcon
                 fill={focused ? COLORS.primary : COLORS.secondary}
@@ -109,7 +113,7 @@ const MainLayout = () => {
           name="profile"
           options={{
             title: "Perfil",
-            headerShown: false,
+            // headerShown: false,
             tabBarIcon: ({ focused }) => (
               <ProfileIcon
                 fill={focused ? COLORS.primary : COLORS.secondary}

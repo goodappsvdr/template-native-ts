@@ -22,7 +22,7 @@ type Props = {
 const ClaimsList = ({ withTitle = true, data }: Props) => {
   const { formatDateTime } = useDateFormatter();
   const redirectClaim = () => {
-    router.navigate("/profile/new-claim");
+    router.navigate("/profile-stack/new-claim");
   };
 
   return (

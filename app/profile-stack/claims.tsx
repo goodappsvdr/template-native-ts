@@ -1,12 +1,13 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import CustomText from "../../../../src/components/Customs/CustomText";
-import { COLORS } from "../../../../src/Constants/Colors";
-import ClaimsList from "../../../../src/components/Profile/ClaimsList";
-import { ClaimResponse } from "../../../../src/interfaces/auth/auth.interface";
-import { api } from "../../../../src/api/api";
+
+import { COLORS } from "../../src/Constants/Colors";
+import ClaimsList from "../../src/components/Profile/ClaimsList";
+import { ClaimResponse } from "../../src/interfaces/auth/auth.interface";
+import { api } from "../../src/api/api";
 import { useQuery } from "@tanstack/react-query";
-import { useAuthStore } from "../../../../src/zustand/authStore";
+import { useAuthStore } from "../../src/zustand/authStore";
+import CustomText from "../../src/components/Customs/CustomText";
 
 const getClaims = async ({
   queryKey,

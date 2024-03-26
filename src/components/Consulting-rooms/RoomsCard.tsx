@@ -10,7 +10,7 @@ interface RoomsCardProps {
 
 const RoomsCard = ({ room }: RoomsCardProps) => {
   const redirect = () => {
-    router.navigate(`/consulting-rooms/${room.idOffice}`);
+    router.navigate(`/consulting-rooms-stack/${room.idOffice}`);
   };
   return (
     <TouchableOpacity

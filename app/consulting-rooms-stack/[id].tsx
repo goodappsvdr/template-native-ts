@@ -2,19 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import { RefreshControl, ScrollView, Text, View } from "react-native";
-import { COLORS } from "../../../../src/Constants/Colors";
-import { api } from "../../../../src/api/api";
-import CustomAccordion from "../../../../src/components/Customs/CustomAccordion";
-import CustomCover from "../../../../src/components/Customs/CustomCover";
-import CustomRoomEmployeeList from "../../../../src/components/Customs/CustomRoomEmployeeList";
-import CustomRoomSheduleGrid from "../../../../src/components/Customs/CustomRoomScheduleGrid";
-import CustomText from "../../../../src/components/Customs/CustomText";
-import CustomYoutubePlayer from "../../../../src/components/Customs/CustomYoutubePlayer";
+import { COLORS } from "../../src/Constants/Colors";
+import { api } from "../../src/api/api";
+import CustomAccordion from "../../src/components/Customs/CustomAccordion";
+import CustomCover from "../../src/components/Customs/CustomCover";
+import CustomRoomEmployeeList from "../../src/components/Customs/CustomRoomEmployeeList";
+import CustomRoomSheduleGrid from "../../src/components/Customs/CustomRoomScheduleGrid";
+import CustomText from "../../src/components/Customs/CustomText";
+import CustomYoutubePlayer from "../../src/components/Customs/CustomYoutubePlayer";
 import {
   EmployeeList,
   GetRoomByIdResponse,
-} from "../../../../src/interfaces/consulting/consulting.interface";
-import ProfileSkeleton from "../../../../src/components/Skeletons/ProfileSkeleton";
+} from "../../src/interfaces/consulting/consulting.interface";
+import ProfileSkeleton from "../../src/components/Skeletons/ProfileSkeleton";
 
 const getRoomById = async ({
   queryKey,

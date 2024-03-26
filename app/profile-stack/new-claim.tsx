@@ -7,17 +7,18 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import CustomText from "../../../../src/components/Customs/CustomText";
+
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { CustomTextField } from "../../../../src/components/Inputs/CustomTextField/CustomTextField";
-import { COLORS } from "../../../../src/Constants/Colors";
+import { CustomTextField } from "../../src/components/Inputs/CustomTextField/CustomTextField";
+import { COLORS } from "../../src/Constants/Colors";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "../../../../src/api/api";
-import { useAuthStore } from "../../../../src/zustand/authStore";
+import { api } from "../../src/api/api";
+import { useAuthStore } from "../../src/zustand/authStore";
 import Toast from "react-native-toast-message";
 import { router } from "expo-router";
+import CustomText from "../../src/components/Customs/CustomText";
 
 const claimSchema = z.object({
   descripcion: z

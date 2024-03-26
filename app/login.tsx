@@ -13,7 +13,7 @@ import {
 // import { FilledInput } from "../src/FilledTextField/FilledTextField";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, router, useNavigation } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import DissmissKeyboard from "../src/components/Utils/DissmissKeyboard/DissmissKeyboard";
@@ -38,8 +38,8 @@ interface IFormInput {
 }
 
 const loginSchema = z.object({
-  email: z.string().email().min(5),
-  dni: z.string().min(5),
+  email: z.string().email("Email invalido").min(1, "El email es requerido"),
+  dni: z.string().min(1, "El dni es requerido"),
 });
 
 const loginUser = async (data: IFormInput) => {
@@ -59,7 +59,7 @@ export default function Page() {
 
   const navigate = useNavigation();
 
-  const { setAccessToken } = useAuthStore();
+  const { setAccessToken, logout } = useAuthStore();
 
   const form = useForm({
     defaultValues: {
@@ -82,13 +82,17 @@ export default function Page() {
     onSuccess: async (data) => {
       setAccessToken(data.token);
       await SecureStoreSetItemAsync("token", data.token);
-      router.push("/home");
+      router.replace("/home");
     },
     onError: (error) => {
       console.log(error.message);
     },
   });
   const { register, handleSubmit, control } = form;
+
+  useEffect(() => {
+    logout();
+  }, []);
 
   function generateWhatsappText(texto: string) {
     var numeroTelefono = "5493543540516"; // Coloca aquí el número de teléfono

@@ -222,7 +222,7 @@ export default function CustomDrawerContent(props: any) {
                   );
                 }}
                 onPress={() => {
-                  router.push("/logout");
+                  router.replace("/logout");
                 }}
                 icon={({ focused, color, size }) => {
                   return (
@@ -293,10 +293,10 @@ export default function CustomDrawerContent(props: any) {
                 );
               }}
               onPress={() => {
-                if (pathname === "/diciplines") {
+                if (pathname === "/disciplines") {
                   return;
                 }
-                router.push("/diciplines");
+                router.push("/disciplines");
               }}
               icon={({ focused, color, size }) => {
                 return (
@@ -392,7 +392,7 @@ export default function CustomDrawerContent(props: any) {
                     );
                   }}
                   onPress={() => {
-                    router.navigate("/profile/claims");
+                    router.navigate("/profile-stack/claims");
                   }}
                   icon={({ focused, color, size }) => {
                     return (

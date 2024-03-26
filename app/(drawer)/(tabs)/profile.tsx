@@ -1,4 +1,4 @@
-import { useGlobalSearchParams, useRouter } from "expo-router";
+import { Redirect, useGlobalSearchParams, useRouter } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
   Image,
@@ -9,23 +9,24 @@ import {
   ScrollView,
   View,
 } from "react-native";
-import { COLORS } from "../../../../src/Constants/Colors";
-import CustomText from "../../../../src/components/Customs/CustomText";
-import ClaimsList from "../../../../src/components/Profile/ClaimsList";
-import NewsNotificactionConfig from "../../../../src/components/Profile/NewsNotificactionConfig";
-import { useAuthStore } from "../../../../src/zustand/authStore";
-import { useDateFormatter } from "../../../../src/hooks/useDateFormatter";
+
+import CustomText from "../../../src/components/Customs/CustomText";
+import ClaimsList from "../../../src/components/Profile/ClaimsList";
+import NewsNotificactionConfig from "../../../src/components/Profile/NewsNotificactionConfig";
+import { useAuthStore } from "../../../src/zustand/authStore";
+import { useDateFormatter } from "../../../src/hooks/useDateFormatter";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { api } from "../../../../src/api/api";
-import { ClaimResponse } from "../../../../src/interfaces/auth/auth.interface";
+import { api } from "../../../src/api/api";
+import { ClaimResponse } from "../../../src/interfaces/auth/auth.interface";
 import Animated, {
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-const userMasculino = require("../../../../assets/UserMasculino.png");
-const userFemenino = require("../../../../assets/UserFemenino.png");
+import { COLORS } from "../../../src/Constants/Colors";
+const userMasculino = require("../../../assets/UserMasculino.png");
+const userFemenino = require("../../../assets/UserFemenino.png");
 
 const getClaims = async ({
   queryKey,
@@ -42,8 +43,12 @@ const Profile = () => {
   const GlobalSearchParams = useGlobalSearchParams();
   const router = useRouter();
 
-  const { user, contracts } = useAuthStore();
+  const { user, contracts, isAuth } = useAuthStore();
   const { formatDate } = useDateFormatter();
+
+  if (!isAuth) {
+    return <Redirect href={"/login"} />;
+  }
 
   const getClaimsQuery = useQuery({
     queryKey: ["claims", user!.idClient!, 3],
@@ -325,7 +330,7 @@ const Profile = () => {
               },
             ]}
             onPress={() => {
-              router.navigate("/profile/claims");
+              router.navigate("/profile-stack/claims");
             }}
           >
             <CustomText

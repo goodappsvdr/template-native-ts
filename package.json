@@ -32,7 +32,7 @@
     "pinar": "^0.12.2",
     "react": "18.2.0",
     "react-hook-form": "^7.50.1",
-    "react-native": "0.73.4",
+    "react-native": "0.73.6",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-paper": "^5.12.3",
     "react-native-reanimated": "~3.6.2",
@@ -47,7 +47,8 @@
     "react-native-webview": "13.6.4",
     "react-native-youtube-iframe": "^2.3.0",
     "zod": "^3.22.4",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.0",
+    "expo-updates": "~0.24.12"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

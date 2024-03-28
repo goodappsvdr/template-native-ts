@@ -3,6 +3,7 @@ export interface ClientesGetAsyncResponse {
   message: string;
   clients: Clients;
   contracts: Contract[];
+  contractsInactive: ContractInactive[];
 }
 
 export interface Clients {
@@ -17,6 +18,14 @@ export interface Clients {
 }
 
 export interface Contract {
+  idClientContract: number;
+  plan: string;
+  startDate: string;
+  endDate: string;
+  state: string;
+}
+
+export interface ContractInactive {
   idClientContract: number;
   plan: string;
   startDate: string;

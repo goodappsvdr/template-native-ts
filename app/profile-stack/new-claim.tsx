@@ -74,7 +74,7 @@ const newCLaim = (props: Props) => {
         type: "success",
         text1: "Reclamo enviado",
       });
-      router.navigate("/profile/claims");
+      router.navigate("/profile-stack/claims");
       form.reset();
     },
     onError: (error) => {

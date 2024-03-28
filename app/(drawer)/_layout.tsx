@@ -64,8 +64,11 @@ const getUserInfo = async () => {
 
     const data = response.data as ClientesGetAsyncResponse;
 
+    console.log(data);
+
     useAuthStore.getState().setUser(data.clients);
     useAuthStore.getState().setContracts(data.contracts);
+    useAuthStore.getState().setContractsInactive(data.contractsInactive);
 
     const expoToken =
       (await SecureStoreGetItemAsync("expoToken")) ||
@@ -74,6 +77,8 @@ const getUserInfo = async () => {
     const getExpoTokenStatus = await api.get<getAsyncResponse>(
       "/TokenExpo/GetAsync/" + data.clients.idClient
     );
+
+    console.log(getExpoTokenStatus.data);
 
     if (
       getExpoTokenStatus.data.result === false ||

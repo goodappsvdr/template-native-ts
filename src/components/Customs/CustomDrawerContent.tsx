@@ -424,7 +424,9 @@ export default function CustomDrawerContent(props: any) {
                 );
               }}
               onPress={() => {
-                router.push("/");
+                router.push(
+                  "https://www.youtube.com/@eosdistritodeportivo/videos"
+                );
               }}
               icon={({ focused, color, size }) => {
                 return (

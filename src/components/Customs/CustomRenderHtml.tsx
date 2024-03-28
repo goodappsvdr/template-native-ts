@@ -31,6 +31,11 @@ const tagsStyles: MixedStyleRecord = {
     fontWeight: "normal",
   },
 
+  h4: {
+    fontFamily: "Montserrat-Black",
+    fontWeight: "normal",
+  },
+
   'span[style="font-weight: bolder;"]': {
     fontFamily: "Montserrat-Black",
     fontWeight: "normal",
@@ -38,6 +43,7 @@ const tagsStyles: MixedStyleRecord = {
 };
 
 const CustomRenderHtml = ({ htmlContent, width }: CustomRenderHtmlProps) => {
+  console.log(htmlContent);
   return (
     <RenderHTML
       source={{ html: htmlContent }}

@@ -43,7 +43,7 @@ const Profile = () => {
   const GlobalSearchParams = useGlobalSearchParams();
   const router = useRouter();
 
-  const { user, contracts, isAuth } = useAuthStore();
+  const { user, contracts, contractsInactive, isAuth } = useAuthStore();
   const { formatDate } = useDateFormatter();
 
   if (!isAuth) {
@@ -205,34 +205,47 @@ const Profile = () => {
               >
                 Planes Activos
               </CustomText>
-              {contracts.map((contract) => {
-                return (
-                  <View
-                    style={{ paddingLeft: 16 }}
-                    key={contract.idClientContract}
-                  >
-                    <CustomText
-                      style={{
-                        fontSize: 20,
 
-                        textTransform: "uppercase",
-                        color: COLORS.secondary,
-                      }}
+              {contracts.length > 0 ? (
+                contracts.map((contract) => {
+                  return (
+                    <View
+                      style={{ paddingLeft: 16 }}
+                      key={contract.idClientContract}
                     >
-                      {contract.plan}
-                    </CustomText>
-                    <CustomText
-                      style={{
-                        fontSize: 14,
-                        fontFamily: "Montserrat-Regular",
-                        color: COLORS.secondary,
-                      }}
-                    >
-                      {`Vence el ${formatDate(contract.endDate)}`}
-                    </CustomText>
-                  </View>
-                );
-              })}
+                      <CustomText
+                        style={{
+                          fontSize: 20,
+
+                          textTransform: "uppercase",
+                          color: COLORS.secondary,
+                        }}
+                      >
+                        {contract.plan}
+                      </CustomText>
+                      <CustomText
+                        style={{
+                          fontSize: 14,
+                          fontFamily: "Montserrat-Regular",
+                          color: COLORS.secondary,
+                        }}
+                      >
+                        {`Vence el ${formatDate(contract.endDate)}`}
+                      </CustomText>
+                    </View>
+                  );
+                })
+              ) : (
+                <CustomText
+                  style={{
+                    textAlign: "left",
+                    color: COLORS.disabledBg,
+                    paddingLeft: 16,
+                  }}
+                >
+                  No tienes planes activos
+                </CustomText>
+              )}
             </View>
             {/* PLANES INCATIVOS  */}
             <View
@@ -253,15 +266,46 @@ const Profile = () => {
               >
                 Planes inactivos
               </CustomText>
-              <CustomText
-                style={{
-                  textAlign: "left",
-                  color: COLORS.disabledBg,
-                  paddingLeft: 16,
-                }}
-              >
-                No tienes planes inactivos
-              </CustomText>
+              {contractsInactive.length > 0 ? (
+                contractsInactive.map((contract) => {
+                  return (
+                    <View
+                      style={{ paddingLeft: 16 }}
+                      key={contract.idClientContract}
+                    >
+                      <CustomText
+                        style={{
+                          fontSize: 20,
+                          textTransform: "uppercase",
+                          color: COLORS.secondary,
+                        }}
+                      >
+                        {contract.plan}
+                      </CustomText>
+                      {/* <CustomText
+                        style={{
+                          fontSize: 14,
+                          fontFamily: "Montserrat-Regular",
+                          color: COLORS.secondary,
+                        }}
+                      >
+                        {`Vence el ${formatDate(contract.endDate)}`}
+                      </CustomText> */}
+                    </View>
+                  );
+                })
+              ) : (
+                <CustomText
+                  style={{
+                    textAlign: "left",
+                    color: COLORS.disabledBg,
+                    paddingLeft: 16,
+                  }}
+                >
+                  No tienes planes inactivos
+                </CustomText>
+              )}
+
               {/* <View style={{ paddingLeft: 16 }}>
           <CustomText
           style={{

@@ -31,18 +31,23 @@ import CustomText from "../src/components/Customs/CustomText";
 import { SecureStoreSetItemAsync } from "../src/Services/SecureStorageHelpers";
 import CustomLoginFooter from "../src/components/Customs/CustomLoginFooter";
 import { COLORS } from "../src/Constants/Colors";
+import Toast from "react-native-toast-message";
 
-interface IFormInput {
+// interface IFormInput {
+//   email: string;
+//   dni: string;
+// }
+
+interface FieldValues {
   email: string;
   dni: string;
 }
-
 const loginSchema = z.object({
   email: z.string().email("Email invalido").min(1, "El email es requerido"),
   dni: z.string().min(1, "El dni es requerido"),
 });
 
-const loginUser = async (data: IFormInput) => {
+const loginUser = async (data: FieldValues) => {
   // crear el formData
 
   const formData = new FormData();
@@ -57,14 +62,12 @@ const loginUser = async (data: IFormInput) => {
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
 
-  const navigate = useNavigation();
-
   const { setAccessToken, logout } = useAuthStore();
 
-  const form = useForm({
+  const form = useForm<FieldValues>({
     defaultValues: {
-      email: "anaclara2786@gmail.com",
-      dni: "18172886",
+      email: "",
+      dni: "",
     },
     resolver: zodResolver(loginSchema),
   });
@@ -85,7 +88,19 @@ export default function Page() {
       router.replace("/home");
     },
     onError: (error) => {
-      console.log(error.message);
+      if (error.response.status === 401) {
+        Toast.show({
+          type: "error",
+          text1: "Usuario o contraseña incorrecto",
+        });
+
+        return;
+      }
+
+      Toast.show({
+        type: "error",
+        text1: "Hubo un error inesperado",
+      });
     },
   });
   const { register, handleSubmit, control } = form;

@@ -3,7 +3,7 @@
     "name": "eos-app",
     "slug": "eos-app",
     "scheme": "eos-app",
-    "version": "1.0.0",
+    "version": "19.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

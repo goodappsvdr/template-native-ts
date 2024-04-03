@@ -10,14 +10,14 @@
     },
     "local": {
       "android": {
-        "buildType": "apk"
+        // "buildType": "apk"
       },
       "distribution": "internal",
       "channel": "local"
     },
     "production": {
       "android": {
-        "buildType": "apk"
+        // "buildType": "apk"
       },
       "channel": "production"
     }

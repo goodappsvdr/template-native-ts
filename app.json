@@ -22,6 +22,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.emmabria.eosapp",
+      "versionCode": 19,
       "googleServicesFile": "./google-services.json"
     },
     "web": {

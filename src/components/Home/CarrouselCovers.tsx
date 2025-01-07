@@ -24,6 +24,7 @@ const getBanners = async (): Promise<GetBannersResponse> => {
 
   return response.data;
 };
+// bruka
 
 const CarrouselCovers = (props: Props) => {
   const { width } = useWindowDimensions();

@@ -1,154 +1,71 @@
-import { DrawerNavigationProp } from "@react-navigation/drawer";
-import { Stack, Tabs, router, useNavigation, usePathname } from "expo-router";
-import { Drawer } from "expo-router/drawer";
-import { Pressable, Text, View } from "react-native";
-import HomeIcon from "../../../src/components/Icons/HomeIcon";
-import { COLORS } from "../../../src/Constants/Colors";
-import DiciplinesIcon from "../../../src/components/Icons/DiciplinesIcon";
-import ConsultingRoomsIcon from "../../../src/components/Icons/ConsultingRoomsIcon";
-import NewsIcon from "../../../src/components/Icons/NewsIcon";
-import ProfileIcon from "../../../src/components/Icons/ProfileIcon";
-import MenuIcon from "../../../src/components/Icons/MenuIcon";
-import GoBackIcon from "../../../src/components/Icons/GoBackIcon";
-import { StatusBar } from "expo-status-bar";
-import CustomHeader from "../../../src/components/Customs/CustomHeader";
+import { Tabs, useNavigation } from 'expo-router';
+import React from 'react';
+import { Platform } from 'react-native';
 
-const MainLayout = () => {
-  const navigation = useNavigation() as DrawerNavigationProp<{}>;
+import { HapticTab } from '@/components/HapticTab';
+import { IconSymbol } from '@/components/ui/IconSymbol';
+import TabBarBackground from '@/components/ui/TabBarBackground';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { CustonUseNavigationType } from '@/types/UseNavigation';
 
-  const pathname = usePathname();
+export default function TabLayout() {
+  const colorScheme = useColorScheme();
+
+  const navigation = useNavigation() as CustonUseNavigationType;
+
+  const toggleDrawer = () => {
+    navigation.toggleDrawer();
+  };
 
   return (
-    <>
-      <StatusBar style={"light"} />
-      <Tabs
-        screenOptions={{
-          tabBarStyle: {
-            position: "absolute",
-            bottom: 16,
-            left: 16,
-            right: 16,
-            backgroundColor: "white",
-            elevation: 2,
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.1,
-            shadowRadius: 1,
-            borderRadius: 12,
-            height: 64,
-            paddingBottom: 8,
-            paddingTop: 8,
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        headerShown: false,
+        tabBarButton: HapticTab,
+        tabBarBackground: TabBarBackground,
+        tabBarStyle: Platform.select({
+          ios: {
+            // Use a transparent background on iOS to show the blur effect
+            position: 'absolute',
           },
-          tabBarInactiveTintColor: COLORS.secondary,
-          tabBarActiveTintColor: COLORS.primary,
-          tabBarLabelStyle: {
-            fontFamily: "Montserrat-Black",
-            textTransform: "uppercase",
-            fontSize: 7,
-            marginTop: "auto",
-          },
-          unmountOnBlur: true,
-          header: () => {
-            return <CustomHeader goBackEnabled={false} />;
-          },
+          default: {},
+        }),
+      }}>
+
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
-      >
-        <Tabs.Screen
-          name="home"
-          options={{
-            title: "Home",
-            // headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <HomeIcon
-                fill={focused ? COLORS.primary : COLORS.secondary}
-                height={32}
-                width={32}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="disciplines"
-          options={{
-            title: "Diciplinas",
-            // headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <DiciplinesIcon
-                fill={focused ? COLORS.primary : COLORS.secondary}
-                height={32}
-                width={32}
-              />
-            ),
-            unmountOnBlur: true,
-          }}
-        />
-        <Tabs.Screen
-          name="consulting-rooms"
-          options={{
-            title: "Consultorios",
-            // headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <ConsultingRoomsIcon
-                fill={focused ? COLORS.primary : COLORS.secondary}
-                height={32}
-                width={32}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="news"
-          options={{
-            title: "Noticias",
-            // headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <NewsIcon
-                fill={focused ? COLORS.primary : COLORS.secondary}
-                height={32}
-                width={32}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: "Perfil",
-            // headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <ProfileIcon
-                fill={focused ? COLORS.primary : COLORS.secondary}
-                height={32}
-                width={32}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="drawer"
-          options={{
-            title: "Menu",
-            // headerShown: false,
-            tabBarIcon: ({ focused }) => (
-              <MenuIcon
-                fill={focused ? COLORS.primary : COLORS.secondary}
-                height={32}
-                width={32}
-              />
-            ),
-          }}
-          listeners={() => ({
-            tabPress: (e) => {
-              e.preventDefault();
+      />
 
-              navigation.openDrawer();
-            },
-          })}
-        />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: 'Explore',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+        }}
+      />
 
-        {/* necesito aca tener un boton que abra un drawer y nose tampoco donde poner el drawer menu */}
-      </Tabs>
-    </>
+      <Tabs.Screen
+        name="drawer"
+        options={{
+          title: 'Menu',
+          tabBarIcon: ({ color }) => <IconSymbol size={28}
+                    color={color}
+                    name="line.3.horizontal"
+                  />,
+        }}
+        listeners={() => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            toggleDrawer();
+          },
+        })}
+      />
+    </Tabs>
   );
-};
-
-export default MainLayout;
+}

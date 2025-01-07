@@ -1,87 +1,45 @@
-import { Stack } from "expo-router";
-import DissmissKeyboard from "../src/components/Utils/DissmissKeyboard/DissmissKeyboard";
-import { Background } from "../src/components/Background/Background";
-import BackroundYellow from "../src/components/Background/BackroundYellow";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { AxiosInterceptor } from "../src/api/axios.interceptor";
-import { useFonts } from "expo-font";
-import { useCallback } from "react";
-import { View } from "react-native";
-import * as Notifications from "expo-notifications";
-import PushNotificationLayout from "../src/Notifications/PushNotification";
-import Toast from "react-native-toast-message";
-import { toastConfig } from "../src/ToastConfig/ToastConfig";
-import CustomHeader from "../src/components/Customs/CustomHeader";
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
+import 'react-native-reanimated';
 
-AxiosInterceptor();
+import { useColorScheme } from '@/hooks/useColorScheme';
 
-const RootLayout = () => {
-  const queryClient = new QueryClient();
-  const [fontsLoaded, fontError] = useFonts({
-    "Montserrat-Black": require("../assets/fonts/Montserrat-Black.ttf"),
-    "Montserrat-Regular": require("../assets/fonts/Montserrat-Regular.ttf"),
-    "Montserrat-Bold": require("../assets/fonts/Montserrat-Bold.ttf"),
+// Prevent the splash screen from auto-hiding before asset loading is complete.
+SplashScreen.preventAutoHideAsync();
+
+export default function RootLayout() {
+  const colorScheme = useColorScheme();
+  const [loaded] = useFonts({
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded || fontError) {
-      console.log("font loaded");
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
     }
-  }, [fontsLoaded, fontError]);
+  }, [loaded]);
 
-  if (!fontsLoaded && !fontError) {
+  if (!loaded) {
     return null;
   }
+  
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <PushNotificationLayout>
-        <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-          <Stack
-            initialRouteName="home"
-            screenOptions={{
-              gestureEnabled: true,
-              header: () => {
-                return (
-                  <CustomHeader goBackEnabled={true} drawerEnabled={false} />
-                );
-              },
-            }}
-          >
-            <Stack.Screen
-              name="index"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="login"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="logout"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="(drawer)"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen name="profile-stack" />
-            <Stack.Screen name="disciplines-stack" />
-            <Stack.Screen name="news-stack" />
-            <Stack.Screen name="consulting-rooms-stack" />
-          </Stack>
-        </View>
-        <Toast config={toastConfig} />
-      </PushNotificationLayout>
-    </QueryClientProvider>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="(Drawer)" options={{
+          headerShown: false,
+        }}/>
+        {/* <Stack.Screen name="tabs"  /> */}
+        <Stack.Screen name="login" />
+        <Stack.Screen name="logout" />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+      <StatusBar style="auto" />
+    </ThemeProvider>
   );
-};
-
-export default RootLayout;
+}

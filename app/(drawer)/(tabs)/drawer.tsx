@@ -1,12 +1,11 @@
-import React from "react";
-import { Text, View } from "react-native";
+import {View, Text } from 'react-native';
 
-const Diciplines = () => {
+export default function drawer() {
   return (
     <View>
-      <Text>Diciplines</Text>
+        <Text style={{
+            color: '#fff'
+        }}>Home</Text>
     </View>
   );
-};
-
-export default Diciplines;
+}

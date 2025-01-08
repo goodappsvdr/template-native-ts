@@ -22,8 +22,7 @@ export default function CustomDrawer(props: any) {
   return (
     <View style={{ flex: 1, flexDirection: "column", flexGrow: 1 }}>
       <DrawerContentScrollView {...props}>
-
-      <DrawerItem
+        <DrawerItem
           label={({ focused }) => {
             return (
               <ThemedText
@@ -59,12 +58,36 @@ export default function CustomDrawer(props: any) {
             router.push("/explore");
           }}
           icon={({ focused, color, size }) => {
-            return <IconSymbol size={28} name="paperplane.fill" color={color} />;
+            return (
+              <IconSymbol size={28} name="paperplane.fill" color={color} />
+            );
+          }}
+        />
+
+        <DrawerItem
+          label={({ focused }) => {
+            return (
+              <ThemedText
+                style={{
+                  fontSize: 12,
+                }}
+              >
+                Cerrar sesión
+              </ThemedText>
+            );
+          }}
+          onPress={() => {
+            router.push("/login");
+          }}
+          icon={({ focused, color, size }) => {
+            return (
+              <IconSymbol size={28} name="paperplane.fill" color={color} />
+            );
           }}
         />
       </DrawerContentScrollView>
 
-      <View style={{ padding: 20, flexDirection: "row", alignItems:"center" }}>
+      <View style={{ padding: 20, flexDirection: "row", alignItems: "center" }}>
         <ThemedText style={{ marginRight: 8, fontSize: 16 }}>
           {isDarkMode ? "Modo oscuro" : "Modo claro"}
         </ThemedText>
